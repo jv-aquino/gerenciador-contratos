@@ -55,6 +55,7 @@ export default function Empresas() {
                 return (
                 <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
               )})}
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +66,9 @@ export default function Empresas() {
                 return (
                   <td key={index} className={(value === "Ativa") ? 'ativo' : (value === "Inativa") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
                 )})}
+                <td>
+                  <button className="alterar"><span className="symbol text-[23px]">edit</span></button>
+                </td>
               </tr>
             )})}
           </tbody>

@@ -1,5 +1,5 @@
 table {
-  font-size: 1.11rem;
+  font-size: 1.14rem;
   margin: auto;
 
   @apply bg-white border-dark-blue-500 drop-shadow-md;
@@ -12,7 +12,7 @@ table td, table th {
   @apply border-light-blue-700
 }
 table tbody {
-  font-size: 1.06rem;
+  font-size: 1.1rem;
 }
 
 table tbody tr:nth-child(even) {
@@ -23,4 +23,20 @@ table tbody tr:nth-child(odd) {
 }
 table thead tr {
   @apply bg-light-blue-500
+}
+
+table tbody tr:nth-child(even) .empresa,
+table tbody tr:nth-child(even) .alterar {
+  @apply text-dark-blue-700;
+}
+table tbody tr:nth-child(odd) .empresa,
+table tbody tr:nth-child(odd) .alterar {
+  @apply text-cyan-200;
+}
+
+table .empresa {
+  font-weight: 600;
+}
+table .alterar {
+  line-height: 25px;
 }

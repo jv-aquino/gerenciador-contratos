@@ -45,10 +45,9 @@ export default function Contratos() {
                 return (index == 6 && value) ? (
                   <td key={index}>
                     <button onClick={() => {
-                      console.log(value)
                       setID(value);
                       setShowEmpresa(true);
-                    }} className="font-semibold text-black">Menu +</button>
+                    }} className="empresa">Empresa +</button>
                   </td>
                 ) 
                 : (
