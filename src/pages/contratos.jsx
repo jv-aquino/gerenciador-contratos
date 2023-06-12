@@ -18,25 +18,28 @@ export default function Contratos() {
   }, []);
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            {Object.keys(tableData[0]).map((column) => (
-              <th key={column}>{column}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {tableData.map((row, index) => (
-            <tr key={index}>
-              {Object.values(row).map((value, index) => (
-                <td key={index}>{value}</td>
+    <>
+      <h1>Contratos</h1>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              {Object.keys(tableData[0]).map((column) => (
+                <th key={column}>{column}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {tableData.map((row, index) => (
+              <tr key={index}>
+                {Object.values(row).map((value, index) => (
+                  <td key={index}>{value}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
