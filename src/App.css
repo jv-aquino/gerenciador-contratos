@@ -9,3 +9,10 @@ main h1 {
 
   padding: 12px;
 }
+
+main form {
+  width: min(300px, 90%);
+}
+main form input {
+  padding: 2px;
+}

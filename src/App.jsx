@@ -11,14 +11,17 @@ import { useState } from 'react'
 
 function App() {
   const [page, setPage] = useState('início');
+  const [logged, setLogged] = useState(false);
 
   return (
     <>
-      <Navbar changePage={setPage} />
+      <Navbar changePage={setPage} logged={logged} setLogged={setLogged} />
       
       <main className='bg-white'>
         {(page == 'início') ? <Inicio /> : null}
-        {(page == 'login') ? <Login /> : null}
+        
+        {(page == 'login') ? <Login changePage={setPage} setLogged={setLogged} /> : null}
+
         {(page == 'contratos') ? <Contratos /> : null}
       </main>
 
