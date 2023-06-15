@@ -1,5 +1,12 @@
 nav ul li {
   cursor: pointer;
+  border-radius: 6px;
+
+  transition: .5s;
 
   @apply p-2;
+}
+
+nav ul li:hover {
+  @apply bg-white text-light-blue-600;
 }

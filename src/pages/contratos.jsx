@@ -3,14 +3,16 @@ import supabase from "../lib/supabase";
 
 export default function Contratos() {
   const [tableData, setTableData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getTableData() {
-      const { data, error } = await supabase.from('your_table_name').select('*');
+      const { data, error } = await supabase.from('contratos').select('*');
       if (error) {
-        console.error('Error fetching table data:', error);
+        console.error('Erro:', error);
       } else {
         setTableData(data);
+        setLoading(true);
       }
     }
 
@@ -20,7 +22,9 @@ export default function Contratos() {
   return (
     <>
       <h1>Contratos</h1>
+
       <div>
+        {(loading) ? (
         <table>
           <thead>
             <tr>
@@ -39,6 +43,7 @@ export default function Contratos() {
             ))}
           </tbody>
         </table>
+        ) : <p>Carregando...</p>}
       </div>
     </>
   );

@@ -13,7 +13,6 @@ export default function Login({ changePage, setLogged }) {
     if (error) {
       console.error('Erro:', error);
     } else {
-      console.log('Login de:', user);
       changePage("início");
       setLogged(true);
     }
@@ -23,7 +22,7 @@ export default function Login({ changePage, setLogged }) {
     <>
       <h1>Login</h1>
 
-      <form className="bg-grey-100 rounded p-3 m-auto
+      <form className="bg-white rounded-md p-3 m-auto
       flex flex-col items-center gap-2" 
       onSubmit={handleLogin}>
         <label htmlFor="email">Email:</label><input type="email" name="email" id="email" />
