@@ -1,0 +1,21 @@
+table {
+  margin: auto;
+
+  @apply bg-white border-dark-blue-500 drop-shadow-md;
+}
+table td, table th {
+  padding: 7px;
+  border: 2px solid;
+
+  @apply border-light-blue-700
+}
+
+table tbody tr:nth-child(even) {
+  @apply bg-light-blue-200;
+}
+table tbody tr:nth-child(odd) {
+  @apply bg-dark-blue-300;
+}
+table thead tr {
+  @apply bg-light-blue-500
+}

@@ -1,22 +1,20 @@
 import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
 
+import './contratos.css';
+
 export default function Contratos() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function getTableData() {
-      const { data, error } = await supabase.from('contratos').select('*');
-      if (error) {
-        console.error('Erro:', error);
-      } else {
-        setTableData(data);
+    supabase.from('contratos').select('*').then(res => {
+      if (res) {
+        console.log(res)
+        setTableData(res.data);
         setLoading(true);
       }
-    }
-
-    getTableData();
+    }) 
   }, []);
 
   return (
