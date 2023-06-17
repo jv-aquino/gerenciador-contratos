@@ -10,7 +10,6 @@ export default function Contratos() {
   useEffect(() => {
     supabase.from('contratos').select('*').then(res => {
       if (res) {
-        console.log(res)
         setTableData(res.data);
         setLoading(true);
       }

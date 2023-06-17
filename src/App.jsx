@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     supabase.auth.getUser().then(res => {
-      if (res.data) {
+      if (res.data.user) {
         setLogged(true);
       }
     })
