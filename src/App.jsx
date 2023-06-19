@@ -3,6 +3,7 @@ import Footer from './components/Footer'
 
 import Inicio from './pages/inicio'
 import Contratos from './pages/contratos'
+import Inserir from './pages/inserir'
 import Login from './pages/login'
 
 import supabase from './lib/supabase'
@@ -31,6 +32,8 @@ function App() {
         {(page == 'login') ? <Login changePage={setPage} setLogged={setLogged} /> : null}
 
         {(page == 'contratos') ? <Contratos /> : null}
+
+        {(page == 'inserir') ? <Inserir /> : null}
       </main>
 
       <Footer />

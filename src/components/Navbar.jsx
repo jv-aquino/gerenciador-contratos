@@ -14,13 +14,17 @@ export default function Navbar({ changePage, logged, setLogged }) {
         <li onClick={() => changePage('início')}>Início</li>
         {(!logged) ? <li onClick={() => changePage('login')}>Login</li> : null}
         {(logged) ? (
-          <li onClick={() => changePage('contratos')}>Contratos</li>
-        ) : null}
+        <>
+          <li onClick={() => changePage('contratos')}>Visualizar</li>
+          <li onClick={() => changePage('inserir')}>Novo</li>
 
-        {(logged) ? <li className="cursor-pointer" onClick={() => {
+          <li className="cursor-pointer" onClick={() => {
             supabase.auth.signOut();
             setLogged(false);
-          }}><span className="symbol">logout</span></li> : null}
+            changePage('início');
+          }}><span className="symbol">logout</span></li> 
+        </>
+        ) : null}
       </ul>
     </nav>
   )

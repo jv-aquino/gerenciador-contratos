@@ -26,7 +26,7 @@ export default function Contratos() {
           <thead>
             <tr>
               {Object.keys(tableData[0]).map((column) => (
-                <th key={column}>{column}</th>
+                <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
               ))}
             </tr>
           </thead>
