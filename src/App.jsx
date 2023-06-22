@@ -33,7 +33,7 @@ function App() {
 
         {(page == 'contratos') ? <Contratos /> : null}
 
-        {(page == 'inserir') ? <Inserir /> : null}
+        {(page == 'inserir') ? <Inserir changePage={setPage}/> : null}
       </main>
 
       <Footer />

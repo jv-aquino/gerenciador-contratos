@@ -8,7 +8,7 @@ export default function Contratos() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.from('contratos').select('*').then(res => {
+    supabase.from('contratos').select('*').range(0, 19).then(res => {
       if (res) {
         setTableData(res.data);
         setLoading(true);
@@ -25,19 +25,22 @@ export default function Contratos() {
         <table>
           <thead>
             <tr>
-              {Object.keys(tableData[0]).map((column) => (
+              {Object.keys(tableData[0]).map((column) => {
+                return (
                 <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
-              ))}
+              )})}
             </tr>
           </thead>
           <tbody>
-            {tableData.map((row, index) => (
+            {tableData.map((row, index) => { 
+              return (
               <tr key={index}>
-                {Object.values(row).map((value, index) => (
+                {Object.values(row).map((value, index) => {
+                return (
                   <td key={index}>{value}</td>
-                ))}
+                )})}
               </tr>
-            ))}
+            )})}
           </tbody>
         </table>
         ) : <p>Carregando...</p>}

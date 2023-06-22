@@ -34,11 +34,11 @@ main h1 {
   text-align: center;
   cursor: default;
 
-  padding: 14px 0 10px;
+  padding: 15px 0 8px;
 }
 
 main div.content {
-  width: min(700px, 90%);
+  width: min(730px, 90%);
   margin: auto;
 
   border-radius: 6px;
@@ -66,4 +66,21 @@ main form input {
   border-radius: 4px;
 
   @apply bg-grey-100 border-2 border-dark-blue-500;
+}
+
+main form label {
+  margin: 3px 0 -3px;
+}
+
+main form select {
+  @apply border-2 border-light-blue-600 p-1;
+}
+
+main form div.select {
+  @apply flex gap-3 p-2 pt-3;
+}
+
+span.required {
+  font-weight: 600;
+  @apply text-red-600;
 }
