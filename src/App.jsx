@@ -2,9 +2,12 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 import Inicio from './pages/inicio'
+import Login from './pages/login'
+
 import Contratos from './pages/contratos'
 import Inserir from './pages/inserir'
-import Login from './pages/login'
+
+import Licitacoes from './pages/licitacoes'
 
 import supabase from './lib/supabase'
 import { useEffect, useState } from 'react'
@@ -32,8 +35,10 @@ function App() {
         {(page == 'login') ? <Login changePage={setPage} setLogged={setLogged} /> : null}
 
         {(page == 'contratos') ? <Contratos /> : null}
-
         {(page == 'inserir') ? <Inserir changePage={setPage}/> : null}
+
+        
+        {(page == 'licitacoes') ? <Licitacoes /> : null}
       </main>
 
       <Footer />

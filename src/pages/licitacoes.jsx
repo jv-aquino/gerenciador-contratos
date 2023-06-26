@@ -3,13 +3,14 @@ import supabase from "../lib/supabase";
 
 import './tabela.css';
 
-export default function Contratos() {
+export default function Licitacoes() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.from('contratos').select('*').range(0, 19).then(res => {
+    supabase.from('licitacao').select('*').range(0, 19).then(res => {
       if (res) {
+        console.log(res)
         setTableData(res.data);
         setLoading(true);
       }
@@ -18,7 +19,7 @@ export default function Contratos() {
 
   return (
     <>
-      <h1>Contratos</h1>
+      <h1>Licitações</h1>
 
       <div>
         {(loading) ? (
@@ -37,7 +38,7 @@ export default function Contratos() {
               <tr key={index}>
                 {Object.values(row).map((value, index) => {
                 return (
-                  <td key={index}>{value}</td>
+                  <td key={index}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
                 )})}
               </tr>
             )})}
