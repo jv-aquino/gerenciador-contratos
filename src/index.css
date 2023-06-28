@@ -8,6 +8,10 @@
   @apply outline-light-blue-600;
 }
 
+::selection {
+  @apply bg-green-400 text-white;
+}
+
 body {
   @apply bg-grey-100;
 }

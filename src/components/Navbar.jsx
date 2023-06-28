@@ -25,6 +25,13 @@ export default function Navbar({ changePage, logged, setLogged }) {
           
           <li onClick={() => changePage('licitacoes')}>Licitações</li>
 
+          <div className="dropdown">
+            <li>Outros<span className="symbol">expand_more</span></li>
+            <ul>
+              <li onClick={() => changePage('empresas')}>Empresas</li>
+            </ul>
+          </div>
+
           <li className="cursor-pointer" onClick={() => {
             supabase.auth.signOut();
             setLogged(false);

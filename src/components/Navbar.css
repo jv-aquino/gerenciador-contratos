@@ -20,6 +20,10 @@ nav ul li:hover {
   @apply bg-white text-light-blue-600;
 }
 
+nav .dropdown {
+  position: relative;
+  bottom: 2px;
+}
 
 nav .dropdown ul {
   display: block;
@@ -76,7 +80,9 @@ nav .dropdown ul li:hover {
   @apply bg-light-blue-700 text-white;
 }
 
+nav .dropdown > li span.symbol {
+  transition: .5s ease-out;
+}
 nav .dropdown:hover > li span.symbol {
   transform: rotate(180deg);
-  transition: .5s ease-out;
 }

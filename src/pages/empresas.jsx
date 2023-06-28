@@ -3,12 +3,12 @@ import supabase from "../lib/supabase";
 
 import './tabela.css';
 
-export default function Licitacoes() {
+export default function Empresas() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.from('licitacao').select('*').range(0, 19).then(res => {
+    supabase.from('empresa').select('*').range(0, 19).then(res => {
       if (res) {
         setTableData(res.data);
         setLoading(true);
@@ -18,7 +18,7 @@ export default function Licitacoes() {
 
   return (
     <>
-      <h1>Licitações</h1>
+      <h1>Empresas</h1>
 
       <div>
         {(loading) ? (
