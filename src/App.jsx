@@ -8,8 +8,9 @@ import Contratos from './pages/contratos'
 import Inserir from './pages/inserir'
 
 import Licitacoes from './pages/licitacoes'
-import Empresas from './pages/empresas';
 
+import Empresas from './pages/empresas';
+import Servidores from './pages/servidores';
 
 import supabase from './lib/supabase'
 import { useEffect, useState } from 'react'
@@ -42,6 +43,7 @@ function App() {
         {(page == 'licitacoes') ? <Licitacoes /> : null}
 
         {(page == 'empresas') ? <Empresas /> : null}
+        {(page == 'servidores') ? <Servidores /> : null}
       </main>
 
       <Footer />

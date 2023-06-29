@@ -29,6 +29,7 @@ export default function Navbar({ changePage, logged, setLogged }) {
             <li>Outros<span className="symbol">expand_more</span></li>
             <ul>
               <li onClick={() => changePage('empresas')}>Empresas</li>
+              <li onClick={() => changePage('servidores')}>Servidores</li>
             </ul>
           </div>
 
