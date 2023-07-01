@@ -70,7 +70,7 @@ export default function Inserir({ changePage }) {
         <div className="select">
           <label htmlFor="unidade"><span className="required">*</span>Unidade:</label>
           <select id="unidade" name="unidade" required>
-            <option value="GUARA/FEG">GUARA/FEG</option>
+            <option value="Guara/FEG">Guara/FEG</option>
           </select>
         </div>
 
@@ -85,7 +85,6 @@ export default function Inserir({ changePage }) {
     </>
   )
 }
-
 
 Inserir.propTypes = {
   changePage: PropTypes.func,

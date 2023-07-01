@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
 
+import Carregando from '../components/Carregando';
+
 import './tabela.css';
 
 export default function Servidores() {
@@ -43,7 +45,7 @@ export default function Servidores() {
             )})}
           </tbody>
         </table>
-        ) : <p>Carregando...</p>}
+        ) : <Carregando />}
       </div>
     </>
   );
