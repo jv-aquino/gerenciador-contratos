@@ -1,14 +1,18 @@
 table {
+  font-size: 1.11rem;
   margin: auto;
 
   @apply bg-white border-dark-blue-500 drop-shadow-md;
 }
 table td, table th {
-  padding: 7px 10px;
+  padding: 8px 11px;
   border: 2px solid;
   text-align: center;
 
   @apply border-light-blue-700
+}
+table tbody {
+  font-size: 1.06rem;
 }
 
 table tbody tr:nth-child(even) {

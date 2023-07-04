@@ -9,6 +9,7 @@ import './tabela.css';
 export default function Empresas() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [visibleForm, setVisibleForm] = useState(false);
 
   useEffect(() => {
     supabase.from('empresa').select('*').range(0, 19).then(res => {
@@ -37,17 +38,13 @@ export default function Empresas() {
     if (error) {
       console.log(error);
     } else {
-      location.reload()
+      location.reload();
     }
   }
 
   return (
     <>
       <h1>Empresas</h1>
-
-      <button>Nova Empresa</button>
-
-      <EmpresasForm handleSubmit={handleSubmit} />
 
       <div>
         {(loading) ? (
@@ -74,6 +71,16 @@ export default function Empresas() {
         </table>
         ) : <Carregando />}
       </div>
+
+      <div className="m-auto mt-5 font-medium flex justify-center">
+        <button type="button" className="botaoVerde text-[26px]" onClick={() => setVisibleForm(true)}>Nova Empresa</button>
+      </div>
+
+      {(visibleForm) ? <EmpresasForm handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
     </>
   );
-}
+
+
+Empresas.propTypes = {
+  changePage: PropTypes.func,
+};
