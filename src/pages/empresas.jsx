@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
 
 import Carregando from '../components/Carregando';
+import EmpresasForm from '../components/EmpresaForm';
 
 import './tabela.css';
 
@@ -18,9 +19,35 @@ export default function Empresas() {
     }) 
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const Nome_Legal = document.querySelector("#Nome_Legal").value;
+    const Pessoa = document.querySelector("#Pessoa").value;
+    const CPF = document.querySelector("#CPF").value;
+    const Privada = document.querySelector("#Privada").value;
+    const Situacao = document.querySelector("#Situação").value;
+
+    const { data, error } = await supabase
+      .from('empresa') 
+      .insert([
+        { Nome_Legal, 'CNPJ/CPF': CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao }
+      ]);
+
+    if (error) {
+      console.log(error);
+    } else {
+      location.reload()
+    }
+  }
+
   return (
     <>
       <h1>Empresas</h1>
+
+      <button>Nova Empresa</button>
+
+      <EmpresasForm handleSubmit={handleSubmit} />
 
       <div>
         {(loading) ? (

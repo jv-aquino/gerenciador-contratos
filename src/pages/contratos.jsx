@@ -34,10 +34,11 @@ export default function Contratos() {
             </tr>
           </thead>
           <tbody>
-            {tableData.map((row, index) => { 
+            {tableData.map((row, i) => { 
               return (
-              <tr key={index}>
+              <tr key={i}>
                 {Object.values(row).map((value, index) => {
+                (index == 6) ? null : null;
                 return (
                   <td key={index}>{value}</td>
                 )})}
