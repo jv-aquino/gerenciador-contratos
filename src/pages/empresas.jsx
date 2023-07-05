@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
 
 import Carregando from '../components/Carregando';
-import EmpresasForm from '../components/EmpresaForm';
+import NovaEmpresaForm from '../components/NovaEmpresaForm';
 
 import './tabela.css';
 
@@ -76,11 +76,7 @@ export default function Empresas() {
         <button type="button" className="botaoVerde text-[26px]" onClick={() => setVisibleForm(true)}>Nova Empresa</button>
       </div>
 
-      {(visibleForm) ? <EmpresasForm handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
+      {(visibleForm) ? <NovaEmpresaForm handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
     </>
   );
-
-
-Empresas.propTypes = {
-  changePage: PropTypes.func,
-};
+}

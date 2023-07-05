@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export default function EmpresaForm ({ handleSubmit, cancel }) {
+export default function NovaEmpresaForm ({ handleSubmit, cancel }) {
   return (
     <div className='visibleForm'>
       <form className="flex flex-col gap-[10px]
@@ -44,7 +44,7 @@ export default function EmpresaForm ({ handleSubmit, cancel }) {
   )
 }
 
-EmpresaForm.propTypes = {
+NovaEmpresaForm.propTypes = {
   cancel: PropTypes.func,
   handleSubmit: PropTypes.func,
 };

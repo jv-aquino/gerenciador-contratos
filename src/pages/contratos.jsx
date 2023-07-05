@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
 
 import Carregando from '../components/Carregando';
+import ShowEmpresa from "../components/ShowEmpresa";
 
 import './tabela.css';
 
 export default function Contratos() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showEmpresa, setShowEmpresa] = useState(false);
+  const [ID, setID] = useState(false);
 
   useEffect(() => {
     supabase.from('contratos').select('*').range(0, 19).then(res => {
@@ -38,8 +41,16 @@ export default function Contratos() {
               return (
               <tr key={i}>
                 {Object.values(row).map((value, index) => {
-                (index == 6) ? null : null;
-                return (
+                return (index == 6 && value) ? (
+                  <td key={index}>
+                    <button onClick={() => {
+                      console.log(value)
+                      setID(value);
+                      setShowEmpresa(true);
+                    }} className="font-semibold text-black">Menu +</button>
+                  </td>
+                ) 
+                : (
                   <td key={index}>{value}</td>
                 )})}
               </tr>
@@ -47,6 +58,8 @@ export default function Contratos() {
           </tbody>
         </table>
         ) : <Carregando />}
+
+        {(showEmpresa) ? <ShowEmpresa id={ID} cancel={() => setShowEmpresa(false)}/> : null}
       </div>
     </>
   );
