@@ -13,7 +13,7 @@ export default function Contratos() {
   const [ID, setID] = useState(false);
 
   useEffect(() => {
-    supabase.from('contratos').select('*').range(0, 19).then(res => {
+    supabase.from('contrato').select('*').range(0, 19).then(res => {
       if (res) {
         setTableData(res.data);
         setLoading(true);

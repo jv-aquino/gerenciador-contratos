@@ -3,11 +3,36 @@ import supabase from "../lib/supabase";
 
 import Carregando from '../components/Carregando';
 
+import NovoServidor from '../components/NovoServidor';
+
 import './tabela.css';
 
 export default function Servidores() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [visibleForm, setVisibleForm] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const Nome = document.querySelector("#Nome").value;
+    const Email = document.querySelector("#Email").value;
+    const CPF = document.querySelector("#CPF").value;
+    const Local = document.querySelector("#Local").value;
+    const Situacao = document.querySelector("#Situação").value;
+
+    const { data, error } = await supabase
+      .from('servidor') 
+      .insert([
+        { Nome, CPF, Email, "Local_de_Atuação": Local, 'Situação': Situacao }
+      ]);
+
+    if (error) {
+      console.log(error);
+    } else {
+      location.reload();
+    }
+  }
 
   useEffect(() => {
     supabase.from('servidor').select('*').range(0, 19).then(res => {
@@ -47,6 +72,12 @@ export default function Servidores() {
         </table>
         ) : <Carregando />}
       </div>
+
+      <div className="m-auto mt-5 font-medium flex justify-center">
+        <button type="button" className="botaoVerde text-[26px]" onClick={() => setVisibleForm(true)}>Novo Servidor</button>
+      </div>
+
+      {(visibleForm) ? <NovoServidor handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
     </>
   );
 }
