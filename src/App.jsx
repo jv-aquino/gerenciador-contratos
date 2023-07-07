@@ -5,7 +5,7 @@ import Inicio from './pages/inicio'
 import Login from './pages/login'
 
 import Contratos from './pages/contratos'
-import Inserir from './pages/inserir'
+import Inserir from './pages/inserirContrato'
 
 import Licitacoes from './pages/licitacoes'
 

@@ -33,8 +33,8 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel }) {
             Situação:
           </label>
           <select id="Situação">
-            <option value="Ativo">Ativo</option>
-            <option value="Inativo">Inativo</option>
+            <option value="Ativa">Ativa</option>
+            <option value="Inativa">Inativa</option>
           </select>
           <button type="submit" className="bg-green-500 text-white font-medium rounded m-auto p-2 w-fit">Enviar</button>
           <button type="button" className="bg-red-600 text-black font-medium rounded m-auto p-2 w-fit"

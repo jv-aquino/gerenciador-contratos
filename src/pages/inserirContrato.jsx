@@ -11,7 +11,7 @@ export default function Inserir({ changePage }) {
     const Processo = formData.get('processo');
     const Numero_contrato = formData.get('numero_contrato');
     const Tipo = formData.get('tipo');
-    const Nome_empresa = formData.get('nome_empresa');
+    const Empresa = formData.get('Empresa');
     const Unidade = formData.get('unidade');
     const vigencia_inicio = formData.get('vigencia_inicio');
     const vigencia_final = formData.get('vigencia_final');
@@ -24,7 +24,7 @@ export default function Inserir({ changePage }) {
           Processo,
           Numero_contrato,
           Tipo,
-          Nome_empresa,
+          Empresa,
           Unidade,
           vigencia_inicio,
           vigencia_final
@@ -64,8 +64,8 @@ export default function Inserir({ changePage }) {
           </select>
         </div>
 
-        <label htmlFor="nome_empresa"><span className="required">*</span>Nome da Empresa:</label>
-        <input type="text" id="nome_empresa" name="nome_empresa" required />
+        <label htmlFor="empresa"><span className="required">*</span>ID da Empresa:</label>
+        <input type="text" id="empresa" name="empresa" required />
 
         <div className="select">
           <label htmlFor="unidade"><span className="required">*</span>Unidade:</label>

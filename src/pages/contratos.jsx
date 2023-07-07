@@ -34,6 +34,7 @@ export default function Contratos() {
                 return (
                 <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
               )})}
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +54,7 @@ export default function Contratos() {
                 : (
                   <td key={index}>{value}</td>
                 )})}
+                <td>Menu +</td>
               </tr>
             )})}
           </tbody>

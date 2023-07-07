@@ -123,3 +123,10 @@ span.required {
 
   @apply bg-white text-light-blue-500;
 }
+
+.ativo {
+  @apply text-green-800 font-semibold;
+}
+.inativo {
+  @apply text-red-700 font-semibold;
+}

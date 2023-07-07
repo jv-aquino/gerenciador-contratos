@@ -64,7 +64,7 @@ export default function Servidores() {
               <tr key={index}>
                 {Object.values(row).map((value, index) => {
                 return (
-                  <td key={index}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
+                  <td key={index} className={(value === "Ativo") ? 'ativo' : (value === "Inativo") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
                 )})}
               </tr>
             )})}
