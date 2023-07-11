@@ -35,13 +35,15 @@ export default function ShowEmpresa ({ id, cancel }) {
               Empresa {(data['Empresa_Privada?']) ? "Privada" : "Pública"}
             </p>
             <p>
-              Situação: {data['Situação']}
+              Situação: {(data['Situação'] == 'Ativa') ? 
+              <span className='text-green-700 font-semibold'>{data['Situação']}</span> : 
+              <span className='text-red-700 font-semibold'>{data['Situação']}</span>}          
             </p>
           </>
             : <Carregando />
           }
 
-          <button type="button" className="bg-red-600 text-black font-medium rounded m-auto p-2 w-fit"
+          <button type="button" className="bg-red-600 text-white font-medium rounded m-auto p-2 w-fit"
           onClick={cancel}>Fechar</button>
       </div>
     </div>

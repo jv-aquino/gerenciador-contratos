@@ -53,7 +53,7 @@ export default function Contratos() {
                 : (
                   <td key={index}>{value}</td>
                 )})}
-                <td>Menu +</td>
+                <td className="font-semibold alterar"><button>Menu +</button></td>
               </tr>
             )})}
           </tbody>

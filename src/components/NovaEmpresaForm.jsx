@@ -19,8 +19,8 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel }) {
             Pessoa:
           </label>
           <select id="Pessoa">
-            <option value="Física">Física</option>
             <option value="Jurídica">Jurídica</option>
+            <option value="Física">Física</option>
           </select>
           <label htmlFor="Privada">
             Empresa Privada?

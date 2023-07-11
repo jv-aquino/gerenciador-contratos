@@ -64,7 +64,10 @@ export default function Servidores() {
               return (
               <tr key={index}>
                 {Object.values(row).map((value, index) => {
-                return (
+                return (index == 3) ? (
+                  <td key={index} className="font-semibold alterar">{value}</td>
+                ) 
+                : (
                   <td key={index} className={(value === "Ativo") ? 'ativo' : (value === "Inativo") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
                 )})}
                 <td>

@@ -63,7 +63,10 @@ export default function Empresas() {
               return (
               <tr key={index}>
                 {Object.values(row).map((value, index) => {
-                return (
+                return (index == 2) ? (
+                  <td key={index} className="font-semibold alterar">{value}</td>
+                ) :
+                (
                   <td key={index} className={(value === "Ativa") ? 'ativo' : (value === "Inativa") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
                 )})}
                 <td>
