@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 
-export default function NovaEmpresaForm ({ handleSubmit, cancel }) {
+export default function NovaEmpresaForm ({ handleSubmit, cancel, values }) {
+  if (!values) {
+    values["Nome"] = values["Email"] = values["CPF"] = values["Local_de_Atuação"] = values["Situação"] = null;
+  }
   return (
     <div className='visibleForm'>
       <form className="flex flex-col gap-[10px]
@@ -47,4 +50,5 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel }) {
 NovaEmpresaForm.propTypes = {
   cancel: PropTypes.func,
   handleSubmit: PropTypes.func,
+  values: PropTypes.any
 };
