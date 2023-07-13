@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-export default function NovoServidor ({ handleSubmit, cancel, valores }) {
+export default function NovoServidor ({ handleSubmit, cancel, valores, deletarServidor }) {
   let values = valores;
   if (!values) {
     values = {};
@@ -18,7 +18,7 @@ export default function NovoServidor ({ handleSubmit, cancel, valores }) {
   return (
     <div className='visibleForm'>
       <form className="flex flex-col gap-[10px]
-      bg-white rounded-md p-5" onSubmit={(e) => {
+      bg-white rounded-md py-4 px-5" onSubmit={(e) => {
         e.preventDefault();
         if (clicked) {
           return;
@@ -55,20 +55,25 @@ export default function NovoServidor ({ handleSubmit, cancel, valores }) {
             <option value="Guaratinguetá/FEG">Guaratinguetá/FEG	</option>
           </select>
 
-          <label htmlFor="Situacao">
-            Situação:
-          </label>
-          <select id="Situacao" value={situacao} onChange={(e) => {
-            setSituacao(e.target.value);
-          }}>
-            <option value="Ativo">Ativo</option>
-            <option value="Inativo">Inativo</option>
-          </select>
+          <div className="flex py-2 gap-2">
+            <label htmlFor="Situacao">
+              Situação:
+            </label>
+            <select id="Situacao" value={situacao} onChange={(e) => {
+              setSituacao(e.target.value);
+            }}>
+              <option value="Ativo">Ativo</option>
+              <option value="Inativo">Inativo</option>
+            </select>
+          </div>
 
-          <button type="submit" className="bg-green-500 text-white font-medium rounded m-auto p-2 w-fit">
-            {(!values) ? 'Enviar' : 'Salvar'}
+          <button type="submit" className="bg-green-500 text-black">
+            {(!valores) ? 'Enviar' : 'Salvar'}
           </button>
-          <button type="button" className="bg-red-600 text-black font-medium rounded m-auto p-2 w-fit"
+          {(valores) ? <button type="button" className="bg-dark-blue-500 text-white" onClick={() => {deletarServidor(id)}}>
+            Deletar Servidor
+          </button> : null}
+          <button type="button" className="bg-red-600 text-black"
           onClick={cancel}>Cancelar</button>
       </form>
     </div>
@@ -78,5 +83,6 @@ export default function NovoServidor ({ handleSubmit, cancel, valores }) {
 NovoServidor.propTypes = {
   cancel: PropTypes.func,
   handleSubmit: PropTypes.func,
-  valores: PropTypes.any
+  valores: PropTypes.any,
+  deletarServidor: PropTypes.func
 };

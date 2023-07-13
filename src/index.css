@@ -91,6 +91,10 @@ main form div.select {
   @apply flex gap-3 p-2 pt-3;
 }
 
+main form button {
+  @apply font-medium rounded m-auto p-2 w-fit;
+}
+
 span.required {
   font-weight: 600;
   @apply text-red-600;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
+import PropTypes from 'prop-types';
 
 import Carregando from '../components/Carregando';
 
@@ -7,13 +8,28 @@ import NovoServidor from '../components/NovoServidor';
 
 import './tabela.css';
 
-export default function Servidores() {
+export default function Servidores({ changePage }) {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
 
   const [alterar, setAlterar] = useState(false);
   const [servidor, setServidor] = useState({});
+
+  const deletarServidor = async (id) => {  
+    const { error } = await supabase
+    .from('servidor')
+    .delete()
+    .eq('id', id);
+
+    if (error) {
+      console.log(error)
+      alert(error);
+    } else {
+      changePage("início");
+      setTimeout(() => {changePage("servidores")}, 1);
+    }
+  }
 
   const handleSubmit = async (id) => {
     const Nome = document.querySelector("#Nome").value;
@@ -112,7 +128,11 @@ export default function Servidores() {
 
       {(visibleForm) ? <NovoServidor handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
 
-      {(alterar) ? <NovoServidor handleSubmit={(e) => handleSubmit(e, servidor.id)} cancel={() => setAlterar(false)} valores={servidor} /> : null}
+      {(alterar) ? <NovoServidor handleSubmit={(e) => handleSubmit(e, servidor.id)} cancel={() => setAlterar(false)} valores={servidor} deletarServidor={deletarServidor} /> : null}
     </>
   );
+}
+
+Servidores.propTypes = {
+  changePage: PropTypes.func
 }
