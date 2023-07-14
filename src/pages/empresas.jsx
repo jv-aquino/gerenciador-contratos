@@ -11,6 +11,9 @@ export default function Empresas() {
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
 
+  const [alterar, setAlterar] = useState(false);
+  const [empresa, setEmpresa] = useState({});
+
   useEffect(() => {
     supabase.from('empresa').select('*').range(0, 19).then(res => {
       if (res) {
@@ -20,25 +23,37 @@ export default function Empresas() {
     }) 
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (id) => {
     const Nome_Legal = document.querySelector("#Nome_Legal").value;
     const Pessoa = document.querySelector("#Pessoa").value;
     const CPF = document.querySelector("#CPF").value;
     const Privada = document.querySelector("#Privada").value;
-    const Situacao = document.querySelector("#Situação").value;
+    const Situacao = document.querySelector("#Situacao").value;
 
-    const { data, error } = await supabase
-      .from('empresa') 
-      .insert([
-        { Nome_Legal, 'CNPJ/CPF': CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao }
-      ]);
+    if (!id) {
+      const { data, error } = await supabase
+        .from('empresa') 
+        .insert([
+          { Nome_Legal, 'CNPJ/CPF': CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao }
+        ]);
 
-    if (error) {
-      console.log(error);
+      if (error) {
+        console.log(error);
+      } else {
+        location.reload();
+      }
     } else {
-      location.reload();
+      const { error } = await supabase
+        .from('empresa') 
+        .update(
+          { Nome_Legal, 'CNPJ/CPF': CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao }
+        )
+        .eq('id', id);
+      if (error) {
+        alert(error);
+      } else {
+        location.reload();
+      }
     }
   }
 
@@ -70,7 +85,18 @@ export default function Empresas() {
                   <td key={index} className={(value === "Ativa") ? 'ativo' : (value === "Inativa") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
                 )})}
                 <td>
-                  <button className="alterar"><span className="symbol text-[23px]">edit</span></button>
+                  <button className="alterar" onClick={() => {
+                    let valores = {
+                      "id": Object.values(row)[0],
+                      "Nome": Object.values(row)[1],
+                      "CPF": Object.values(row)[2],
+                      "Pessoa": Object.values(row)[3],
+                      "Privada": Object.values(row)[4],
+                      "Situacao": Object.values(row)[5]
+                    }
+                    setEmpresa(valores);
+                    setAlterar(true);
+                  }}><span className="symbol text-[23px]">edit</span></button>
                 </td>
               </tr>
             )})}
@@ -84,6 +110,8 @@ export default function Empresas() {
       </div>
 
       {(visibleForm) ? <NovaEmpresaForm handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
+
+      {(alterar) ? <NovaEmpresaForm handleSubmit={(id) => handleSubmit(id)} cancel={() => setAlterar(false)} valores={empresa}/> : null}
     </>
   );
 }

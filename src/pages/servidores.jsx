@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
 import PropTypes from 'prop-types';
@@ -51,7 +52,7 @@ export default function Servidores({ changePage }) {
       }
     }
     else {
-      let { data, error } = await supabase
+      let { error } = await supabase
       .from('servidor') 
       .update(
         { Nome, CPF, Email, "Local_de_Atuação": Local, 'Situação': Situacao }
@@ -128,7 +129,7 @@ export default function Servidores({ changePage }) {
 
       {(visibleForm) ? <NovoServidor handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
 
-      {(alterar) ? <NovoServidor handleSubmit={(e) => handleSubmit(e, servidor.id)} cancel={() => setAlterar(false)} valores={servidor} deletarServidor={deletarServidor} /> : null}
+      {(alterar) ? <NovoServidor handleSubmit={(id) => handleSubmit(id)} cancel={() => setAlterar(false)} valores={servidor} deletarServidor={deletarServidor} /> : null}
     </>
   );
 }
