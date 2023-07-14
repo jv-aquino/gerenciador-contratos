@@ -42,7 +42,7 @@ function App() {
 
         {(page == 'licitacoes') ? <Licitacoes /> : null}
 
-        {(page == 'empresas') ? <Empresas /> : null}
+        {(page == 'empresas') ? <Empresas changePage={setPage}/> : null}
         {(page == 'servidores') ? <Servidores changePage={setPage}/> : null}
       </main>
 

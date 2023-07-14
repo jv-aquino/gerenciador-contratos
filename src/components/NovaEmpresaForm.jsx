@@ -18,7 +18,7 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deleta
   return (
     <div className='visibleForm'>
       <form className="flex flex-col gap-[10px]
-      bg-white rounded-md p-5" onSubmit={(e) => {
+      bg-white rounded-md py-4 px-5" onSubmit={(e) => {
         e.preventDefault();
         if (clicked) {
           return;
@@ -78,6 +78,9 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deleta
           <button type="submit" className="bg-green-500 text-white">
             {(!valores) ? 'Enviar' : 'Salvar'}
           </button>
+          {(valores) ? <button type="button" className="bg-dark-blue-500 text-white" onClick={() => {deletarEmpresa(id)}}>
+            Deletar Empresa
+          </button> : null}
           <button type="button" className="bg-red-600 text-black"
           onClick={cancel}>Cancelar</button>
       </form>
@@ -88,5 +91,6 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deleta
 NovaEmpresaForm.propTypes = {
   cancel: PropTypes.func,
   handleSubmit: PropTypes.func,
-  valores: PropTypes.any
+  valores: PropTypes.any,
+  deletarEmpresa: PropTypes.func
 };

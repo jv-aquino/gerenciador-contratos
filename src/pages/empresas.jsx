@@ -1,12 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
+import PropTypes from 'prop-types';
 
 import Carregando from '../components/Carregando';
 import NovaEmpresaForm from '../components/NovaEmpresaForm';
 
 import './tabela.css';
 
-export default function Empresas() {
+export default function Empresas({ changePage }) {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
@@ -22,6 +24,21 @@ export default function Empresas() {
       }
     }) 
   }, []);
+
+  const deletarEmpresa = async (id) => {  
+    const { error } = await supabase
+    .from('empresa')
+    .delete()
+    .eq('id', id);
+
+    if (error) {
+      console.log(error)
+      alert(error);
+    } else {
+      changePage("início");
+      setTimeout(() => {changePage("empresas")}, 1);
+    }
+  }
 
   const handleSubmit = async (id) => {
     const Nome_Legal = document.querySelector("#Nome_Legal").value;
@@ -111,7 +128,11 @@ export default function Empresas() {
 
       {(visibleForm) ? <NovaEmpresaForm handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
 
-      {(alterar) ? <NovaEmpresaForm handleSubmit={(id) => handleSubmit(id)} cancel={() => setAlterar(false)} valores={empresa}/> : null}
+      {(alterar) ? <NovaEmpresaForm handleSubmit={(id) => handleSubmit(id)} cancel={() => setAlterar(false)} valores={empresa} deletarEmpresa={deletarEmpresa}/> : null}
     </>
   );
+}
+
+Empresas.propTypes = {
+  changePage: PropTypes.func,
 }
