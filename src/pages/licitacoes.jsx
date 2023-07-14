@@ -10,7 +10,7 @@ export default function Licitacoes() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.from('licitacao').select('*').range(0, 19).then(res => {
+    supabase.from('licitacao').select('*').range(0, 19).order('id', { ascending: true }).then(res => {
       if (res) {
         setTableData(res.data);
         setLoading(true);

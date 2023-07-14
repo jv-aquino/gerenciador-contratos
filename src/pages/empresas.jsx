@@ -17,7 +17,7 @@ export default function Empresas({ changePage }) {
   const [empresa, setEmpresa] = useState({});
 
   useEffect(() => {
-    supabase.from('empresa').select('*').range(0, 19).then(res => {
+    supabase.from('empresa').select('*').range(0, 19).order('id', { ascending: true }).then(res => {
       if (res) {
         setTableData(res.data);
         setLoading(true);
@@ -57,7 +57,8 @@ export default function Empresas({ changePage }) {
       if (error) {
         console.log(error);
       } else {
-        location.reload();
+        changePage("início");
+        setTimeout(() => {changePage("empresas")}, 1);
       }
     } else {
       const { error } = await supabase
@@ -69,7 +70,8 @@ export default function Empresas({ changePage }) {
       if (error) {
         alert(error);
       } else {
-        location.reload();
+        changePage("início");
+        setTimeout(() => {changePage("empresas")}, 1);
       }
     }
   }

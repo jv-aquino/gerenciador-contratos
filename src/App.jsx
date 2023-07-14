@@ -6,6 +6,7 @@ import Login from './pages/login'
 
 import Contratos from './pages/contratos'
 import Inserir from './pages/inserirContrato'
+import VerContrato from './pages/verContrato'
 
 import Licitacoes from './pages/licitacoes'
 
@@ -13,11 +14,13 @@ import Empresas from './pages/empresas';
 import Servidores from './pages/servidores';
 
 import supabase from './lib/supabase'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 function App() {
   const [page, setPage] = useState('início');
   const [logged, setLogged] = useState(false);
+
+  const [idContrato, setIdContrato] = useState(0);
 
   useEffect(() => {
     supabase.auth.getUser().then(res => {
@@ -37,8 +40,9 @@ function App() {
 
         {(page == 'login') ? <Login changePage={setPage} setLogged={setLogged} /> : null}
 
-        {(page == 'contratos') ? <Contratos /> : null}
+        {(page == 'contratos') ? <Contratos setIdContrato={setIdContrato} changePage={setPage} /> : null}
         {(page == 'inserir') ? <Inserir changePage={setPage}/> : null}
+        {(page == 'verContrato') ? <VerContrato id={idContrato} /> : null}
 
         {(page == 'licitacoes') ? <Licitacoes /> : null}
 

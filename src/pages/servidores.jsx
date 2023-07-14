@@ -48,7 +48,8 @@ export default function Servidores({ changePage }) {
       if (error) {
         alert(error);
       } else {
-        location.reload();
+        changePage("início");
+        setTimeout(() => {changePage("servidores")}, 1);
       }
     }
     else {
@@ -61,13 +62,14 @@ export default function Servidores({ changePage }) {
       if (error) {
         alert(error);
       } else {
-        location.reload();
+        changePage("início");
+        setTimeout(() => {changePage("servidores")}, 1);
       }
     }
   }
 
   useEffect(() => {
-    supabase.from('servidor').select('*').range(0, 19).then(res => {
+    supabase.from('servidor').select('*').range(0, 19).order('id', { ascending: true }).then(res => {
       if (res) {
         setTableData(res.data);
         setLoading(true);

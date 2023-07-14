@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
+import PropTypes from 'prop-types';
 
 import Carregando from '../components/Carregando';
 import ShowEmpresa from "../components/ShowEmpresa";
 
 import './tabela.css';
 
-export default function Contratos() {
+export default function Contratos({ setIdContrato, changePage }) {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showEmpresa, setShowEmpresa] = useState(false);
   const [ID, setID] = useState(false);
 
   useEffect(() => {
-    supabase.from('contrato').select('*').range(0, 19).then(res => {
+    supabase.from('contrato').select('*').range(0, 19).order('id', { ascending: true }).then(res => {
       if (res) {
         setTableData(res.data);
         setLoading(true);
@@ -53,7 +54,10 @@ export default function Contratos() {
                 : (
                   <td key={index}>{value}</td>
                 )})}
-                <td className="font-semibold alterar"><button>Menu +</button></td>
+                <td className="font-semibold alterar"><button type="button" onClick={() => {
+                  setIdContrato(Object.values(row)[0]);
+                  changePage("verContrato")
+                }}>Menu +</button></td>
               </tr>
             )})}
           </tbody>
@@ -64,4 +68,9 @@ export default function Contratos() {
       </div>
     </>
   );
+}
+
+Contratos.propTypes = {
+  setIdContrato: PropTypes.func,
+  changePage: PropTypes.func
 }
