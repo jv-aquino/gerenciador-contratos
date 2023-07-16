@@ -5,7 +5,7 @@ table {
   @apply bg-white border-dark-blue-500 drop-shadow-md;
 }
 table td, table th {
-  padding: 8px 11px;
+  padding: 10px 11px;
   border: 2px solid;
   text-align: center;
 

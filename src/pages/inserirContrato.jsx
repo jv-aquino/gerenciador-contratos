@@ -18,7 +18,7 @@ export default function Inserir({ changePage }) {
     const Valor = formData.get('valor');
   
     const { data, error } = await supabase
-      .from('contratos')
+      .from('contrato')
       .insert([
         {
           Objeto,
@@ -53,10 +53,10 @@ export default function Inserir({ changePage }) {
         <input type="text" id="objeto" name="objeto" placeholder="Nome do Contrato" required />
 
         <label htmlFor="processo"><span className="required">*</span>Processo:</label>
-        <input type="text" id="processo" name="processo" required />
+        <input type="text" id="processo" name="processo" placeholder="000/2023" required />
 
         <label htmlFor="numero_contrato"><span className="required">*</span>Número do Contrato:</label>
-        <input type="text" id="numero_contrato" name="numero_contrato" required />
+        <input type="text" id="numero_contrato" name="numero_contrato" placeholder="00/2023" required />
 
         <div className="select">
           <label htmlFor="tipo"><span className="required">*</span>Tipo:</label>

@@ -11,11 +11,24 @@ export default function VerContrato({ id }) {
   useEffect(() => {
     supabase.from('contrato').select('*').eq('id', id).then(res => {
       if (res) {
-        setContrato(res.data[0]);
+        const item = res.data[0];
+        item["Vigencia_inicio"] = item["Vigencia_inicio"].replace(/-/g, '/');
+        item["Vigencia_final"] = item["Vigencia_final"].replace(/-/g, '/');
+        item["Dias_Restantes"] = diasRestantes(item["Vigencia_final"]);
+
+        setContrato(item);
         setLoading(false);
       }
     }) 
   }, [id]);
+  
+  const diasRestantes = (dataFinal) => {
+    const oneDay = 24 * 60 * 60 * 1000; // ms em um dia
+    const startDate = new Date();
+    const endDate = new Date(dataFinal);
+    const diffDays = Math.round((endDate - startDate) / oneDay);
+    return diffDays;
+  };
 
   return (
   <>  
@@ -23,12 +36,25 @@ export default function VerContrato({ id }) {
     <>
       <h1>Contrato #{contrato.id}</h1>
 
-      <div className="content">
-        <h2>{contrato["Objeto"]}</h2>
-        
+      <div className="content flex flex-col">
+        <h2 className="font-semibold text-3xl self-center">{contrato["Objeto"]}</h2>
+        <h3 className="font-medium text-2xl italic pr-1.5 text-gray-400 self-center">{contrato["Tipo"]}</h3>
+        <p>Processo: {contrato["Processo"]}</p>
+        <p>Número do contrato: {contrato["Numero_contrato"]}</p>
+        <p>Fim do contrato: {contrato["Vigencia_final"]}</p>
+        <p>Unidade: {contrato["Unidade"]}</p>
+        <p>Valor: <span className="font-medium">R$ {parseFloat(contrato["Valor"]).toFixed(2).replace('.', ',')}</span></p>
+        <p>A ser pago: <span className="font-medium text-red-700">R$ {parseFloat(contrato["Valor"] - contrato["Pago"]).toFixed(2).replace('.', ',')}</span></p>
+        <br/>
+        <p>Dias até o fim da vigência: <span className={"font-semibold " + ((contrato["Dias_Restantes"] <= 30) ? "text-red-700" : ((contrato["Dias_Restantes"] <= 90) ? "text-amber-600" : ""))}>
+            {(contrato["Dias_Restantes"] < 0) ? "Expirado" : contrato["Dias_Restantes"]}
+          </span>
+        </p>
       </div>
     </>
-    ) : <Carregando />}
+    ) : <div className="pt-20">
+      <Carregando />
+    </div>}
   </>
   )
 }

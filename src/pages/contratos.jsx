@@ -14,13 +14,28 @@ export default function Contratos({ setIdContrato, changePage }) {
   const [ID, setID] = useState(false);
 
   useEffect(() => {
-    supabase.from('contrato').select('*').range(0, 19).order('id', { ascending: true }).then(res => {
+    supabase.from('contrato').select('id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').range(0, 19).order('id', { ascending: true }).then(res => {
       if (res) {
-        setTableData(res.data);
+        const formattedData = res.data.map(item => ({
+          ...item,
+          "Vigencia_inicio": item["Vigencia_inicio"].replace(/-/g, '/'),
+          "Vigencia_final": item["Vigencia_final"].replace(/-/g, '/'),
+          "Dias_Restantes": diasRestantes(item["Vigencia_final"])
+        }));
+
+        setTableData(formattedData);
         setLoading(true);
       }
     }) 
   }, []);
+  
+  const diasRestantes = (dataFinal) => {
+    const oneDay = 24 * 60 * 60 * 1000; // ms em um dia
+    const startDate = new Date();
+    const endDate = new Date(dataFinal);
+    const diffDays = Math.round((endDate - startDate) / oneDay);
+    return diffDays;
+  };
 
   return (
     <>
@@ -51,9 +66,17 @@ export default function Contratos({ setIdContrato, changePage }) {
                     }} className="empresa">Empresa +</button>
                   </td>
                 ) 
-                : (
+                : (index == 8 && value) ? (
+                  <td key={index}>
+                    <span className={"font-semibold " + ((value <= 30) ? "text-red-700" : ((value <= 90) ? "text-amber-600" : ""))}>
+                      {(value < 0) ? "Expirado" : value}
+                    </span>
+                  </td>
+                ) :
+                (
                   <td key={index}>{value}</td>
                 )})}
+
                 <td className="font-semibold alterar"><button type="button" onClick={() => {
                   setIdContrato(Object.values(row)[0]);
                   changePage("verContrato")
