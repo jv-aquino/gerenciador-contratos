@@ -15,6 +15,11 @@ html, body, :root {
 ::selection {
   @apply bg-green-400 text-white;
 }
+input::placeholder {
+  opacity: 0.93;
+  font-weight: 500;
+  @apply text-slate-400;
+}
 
 body {
   @apply bg-grey-100;
@@ -26,6 +31,10 @@ span.symbol {
  
   position: relative;
   top: 2px;
+}
+
+button {
+  transition: .6s;
 }
 
 main {
@@ -79,7 +88,7 @@ main form input {
 
 main form label {
   margin: 3px 0 -3px;
-  font-size: 1.2rem;
+  font-size: 1.21rem;
   font-weight: 500;
 }
 
