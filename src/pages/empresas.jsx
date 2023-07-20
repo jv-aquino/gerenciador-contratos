@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useData from "../lib/useData";
 import supabase from "../lib/supabase";
 import PropTypes from 'prop-types';
 
@@ -9,21 +10,17 @@ import NovaEmpresaForm from '../components/NovaEmpresaForm';
 import './tabela.css';
 
 export default function Empresas({ changePage }) {
-  const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
+  const [tableData, setTableData] = useState([]);
+
+  useData('empresa', 20).then(value => {
+    setTableData(value);
+    setLoading(true);
+  })
 
   const [alterar, setAlterar] = useState(false);
   const [empresa, setEmpresa] = useState({});
-
-  useEffect(() => {
-    supabase.from('empresa').select('*').range(0, 19).order('id', { ascending: true }).then(res => {
-      if (res) {
-        setTableData(res.data);
-        setLoading(true);
-      }
-    }) 
-  }, []);
 
   const deletarEmpresa = async (id) => {  
     const { error } = await supabase
