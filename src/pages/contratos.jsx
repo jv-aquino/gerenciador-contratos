@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useData from "../lib/useData";
 import supabase from "../lib/supabase";
 import PropTypes from 'prop-types';
 
@@ -13,21 +14,17 @@ export default function Contratos({ setIdContrato, changePage }) {
   const [showEmpresa, setShowEmpresa] = useState(false);
   const [ID, setID] = useState(false);
 
-  useEffect(() => {
-    supabase.from('contrato').select('id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').range(0, 19).order('id', { ascending: true }).then(res => {
-      if (res) {
-        const formattedData = res.data.map(item => ({
-          ...item,
-          "Vigencia_inicio": item["Vigencia_inicio"].replace(/-/g, '/'),
-          "Vigencia_final": item["Vigencia_final"].replace(/-/g, '/'),
-          "Dias_Restantes": diasRestantes(item["Vigencia_final"])
-        }));
+  useData('contrato', 20, 'id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').then(value => {
+    const formattedData = value.map(item => ({
+      ...item,
+      "Vigencia_inicio": item["Vigencia_inicio"].replace(/-/g, '/'),
+      "Vigencia_final": item["Vigencia_final"].replace(/-/g, '/'),
+      "Dias_Restantes": diasRestantes(item["Vigencia_final"])
+    }));
 
-        setTableData(formattedData);
-        setLoading(true);
-      }
-    }) 
-  }, []);
+    setTableData(formattedData);
+    setLoading(true);
+  })
   
   const diasRestantes = (dataFinal) => {
     const oneDay = 24 * 60 * 60 * 1000; // ms em um dia

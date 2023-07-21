@@ -1,7 +1,7 @@
 import supabase from "./supabase";
 
 export default async function useData(table, range, select) {
-  return new Promise((resolve, rej) => {
+  return new Promise((resolve) => {
     if (range) {
       supabase.from(table).select((select) ? select : '*').range(0, range - 1).order('id', { ascending: true }).then(res => {
         if (res) {

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import supabase from "../lib/supabase";
+import { useState } from "react";
+import useData from "../lib/useData";
 
 import Carregando from '../components/Carregando';
 
@@ -9,14 +9,10 @@ export default function Licitacoes() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    supabase.from('licitacao').select('*').range(0, 19).order('id', { ascending: true }).then(res => {
-      if (res) {
-        setTableData(res.data);
-        setLoading(true);
-      }
-    }) 
-  }, []);
+  useData('licitacao', 20).then(value => {
+    setTableData(value);
+    setLoading(true);
+  })
 
   return (
     <>

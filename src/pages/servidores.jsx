@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
+import useData from "../lib/useData";
 import supabase from "../lib/supabase";
 import PropTypes from 'prop-types';
 
@@ -13,6 +14,11 @@ export default function Servidores({ changePage }) {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
+
+  useData('servidor', 20).then(value => {
+    setTableData(value);
+    setLoading(true);
+  })
 
   const [alterar, setAlterar] = useState(false);
   const [servidor, setServidor] = useState({});
@@ -67,15 +73,6 @@ export default function Servidores({ changePage }) {
       }
     }
   }
-
-  useEffect(() => {
-    supabase.from('servidor').select('*').range(0, 19).order('id', { ascending: true }).then(res => {
-      if (res) {
-        setTableData(res.data);
-        setLoading(true);
-      }
-    }) 
-  }, []);
 
   return (
     <>
