@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
-
 import Carregando from './Carregando';
 
-import supabase from '../lib/supabase';
+import supabase from '@/lib/supabase';
 import { useState, useEffect } from 'react';
 
 export default function ShowEmpresa ({ id, cancel }) {
@@ -49,8 +47,3 @@ export default function ShowEmpresa ({ id, cancel }) {
     </div>
   )
 }
-
-ShowEmpresa.propTypes = {
-  cancel: PropTypes.func,
-  id: PropTypes.any
-};

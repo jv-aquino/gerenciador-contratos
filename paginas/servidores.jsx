@@ -1,14 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import useData from "../lib/useData";
-import supabase from "../lib/supabase";
-import PropTypes from 'prop-types';
+import useData from "@/lib/useData";
+import supabase from "@/lib/supabase";
 
-import Carregando from '../components/Carregando';
+import Carregando from '@/components/Carregando';
 
-import NovoServidor from '../components/NovoServidor';
-
-import './tabela.css';
+import NovoServidor from '@/components/NovoServidor';
 
 export default function Servidores({ changePage }) {
   const [tableData, setTableData] = useState([]);
@@ -131,8 +127,4 @@ export default function Servidores({ changePage }) {
       {(alterar) ? <NovoServidor handleSubmit={(id) => handleSubmit(id)} cancel={() => setAlterar(false)} valores={servidor} deletarServidor={deletarServidor} /> : null}
     </>
   );
-}
-
-Servidores.propTypes = {
-  changePage: PropTypes.func
 }

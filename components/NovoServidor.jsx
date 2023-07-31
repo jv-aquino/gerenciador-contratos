@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 export default function NovoServidor ({ handleSubmit, cancel, valores, deletarServidor }) {
@@ -79,10 +78,3 @@ export default function NovoServidor ({ handleSubmit, cancel, valores, deletarSe
     </div>
   )
 }
-
-NovoServidor.propTypes = {
-  cancel: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  valores: PropTypes.any,
-  deletarServidor: PropTypes.func
-};

@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import supabase from "../lib/supabase";
-import PropTypes from 'prop-types';
+import supabase from "@/lib/supabase";
 
-import Carregando from '../components/Carregando';
+import Carregando from '@/components/Carregando';
 
 export default function VerContrato({ id }) {
   const [loading, setLoading] = useState(true);
@@ -57,8 +56,4 @@ export default function VerContrato({ id }) {
     </div>}
   </>
   )
-}
-
-VerContrato.propTypes = {
-  id: PropTypes.any
 }

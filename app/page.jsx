@@ -1,22 +1,24 @@
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+"use client"
 
-import Inicio from './pages/inicio'
-import Login from './pages/login'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
-import Contratos from './pages/contratos'
-import Inserir from './pages/inserirContrato'
-import VerContrato from './pages/verContrato'
+import Inicio from '@/paginas/inicio'
+import Login from '@/paginas/login'
 
-import Licitacoes from './pages/licitacoes'
+import Contratos from '@/paginas/contratos'
+import Inserir from '@/paginas/inserirContrato'
+import VerContrato from '@/paginas/verContrato'
 
-import Empresas from './pages/empresas';
-import Servidores from './pages/servidores';
+import Licitacoes from '@/paginas/licitacoes'
 
-import supabase from './lib/supabase'
+import Empresas from '@/paginas/empresas';
+import Servidores from '@/paginas/servidores';
+
+import supabase from '@/lib/supabase'
 import { useEffect, useState } from 'react';
 
-function App() {
+export default function Home() {
   const [page, setPage] = useState('início');
   const [logged, setLogged] = useState(false);
 
@@ -28,8 +30,7 @@ function App() {
         setLogged(true);
       }
     })
-  }, [])
-  
+  }, []);
 
   return (
     <>
@@ -54,5 +55,3 @@ function App() {
     </>
   )
 }
-
-export default App

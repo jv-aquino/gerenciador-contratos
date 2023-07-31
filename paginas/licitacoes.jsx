@@ -1,9 +1,7 @@
 import { useState } from "react";
-import useData from "../lib/useData";
+import useData from "@/lib/useData";
 
-import Carregando from '../components/Carregando';
-
-import './tabela.css';
+import Carregando from '@/components/Carregando';
 
 export default function Licitacoes() {
   const [tableData, setTableData] = useState([]);

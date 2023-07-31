@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deletarEmpresa }) {
@@ -87,10 +86,3 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deleta
     </div>
   )
 }
-
-NovaEmpresaForm.propTypes = {
-  cancel: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  valores: PropTypes.any,
-  deletarEmpresa: PropTypes.func
-};

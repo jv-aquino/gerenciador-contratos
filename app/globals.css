@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("./ReactToast.css");
+@import url("./tabela.css");
+
 html, body, :root {
   height: 100%;
 }
@@ -146,4 +149,114 @@ span.required {
 }
 .inativo {
   @apply text-red-700 font-semibold;
+}
+
+/* Carregando */
+.ampulheta {
+  margin: auto;
+  animation: rotate 1.6s infinite;
+  animation-delay: .07s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(180deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+
+/* Navbar */
+nav {
+  box-shadow: 0 1px 6px 3px hsla(0,0%,50%,.9);
+  position: relative;
+}
+
+nav ul {
+  position: relative;
+}
+
+nav ul li {
+  cursor: pointer;
+  border-radius: 6px;
+
+  transition: .5s;
+
+  @apply px-2 py-1.5;
+}
+
+nav ul li:hover {
+  @apply bg-white text-light-blue-600;
+}
+
+nav .dropdown {
+  position: relative;
+  bottom: 2px;
+}
+
+nav .dropdown ul {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+
+  position: absolute;
+  top: 51px;
+
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+nav .dropdown ul li:first-child {
+  border-top-right-radius: 5px;
+}
+nav .dropdown ul li:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+nav .dropdown ul li {
+  border-radius: 0;
+  @apply bg-white text-light-blue-600;
+}
+
+nav .dropdown, nav .dropdown ul, nav .dropdown ul * {
+  transition: .45s .1s;
+}
+
+nav .dropdown ul li {
+  padding-right: 52px;
+}
+
+nav .dropdown > li {
+  transition-delay: .07s;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+nav .dropdown:hover > li {
+  @apply bg-white text-light-blue-600;
+}
+
+nav .dropdown:hover ul {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+}
+
+nav .dropdown ul li:hover {
+  @apply bg-light-blue-700 text-white;
+}
+
+nav .dropdown > li span.symbol {
+  transition: .5s ease-out;
+}
+nav .dropdown:hover > li span.symbol {
+  transform: rotate(180deg);
 }

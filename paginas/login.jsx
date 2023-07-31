@@ -1,5 +1,5 @@
-import supabase from "../lib/supabase"
-import PropTypes from 'prop-types';
+import supabase from "@/lib/supabase"
+import { toast } from 'react-toastify';
 
 export default function Login({ changePage, setLogged }) {
   const handleLogin = async (e) => {
@@ -11,8 +11,29 @@ export default function Login({ changePage, setLogged }) {
     });
 
     if (error) {
-      alert('Erro:', error);
-    } else {
+      toast.error('Email ou senha incorretos', {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } 
+    else {
+      toast.success('Sucesso!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+
       changePage("início");
       setLogged(true);
     }
@@ -35,8 +56,3 @@ export default function Login({ changePage, setLogged }) {
     </>
   )
 }
-
-Login.propTypes = {
-  changePage: PropTypes.func,
-  setLogged: PropTypes.func,
-};

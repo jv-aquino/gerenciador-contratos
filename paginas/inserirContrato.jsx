@@ -1,6 +1,4 @@
-import supabase from "../lib/supabase";
-
-import PropTypes from 'prop-types';
+import supabase from "@/lib/supabase";
 
 export default function Inserir({ changePage }) {
   const handleSubmit = async (event) => {
@@ -90,7 +88,3 @@ export default function Inserir({ changePage }) {
     </>
   )
 }
-
-Inserir.propTypes = {
-  changePage: PropTypes.func,
-};

@@ -1,13 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
-import useData from "../lib/useData";
-import supabase from "../lib/supabase";
-import PropTypes from 'prop-types';
+import useData from "@/lib/useData";
+import supabase from "@/lib/supabase";
 
-import Carregando from '../components/Carregando';
-import NovaEmpresaForm from '../components/NovaEmpresaForm';
-
-import './tabela.css';
+import Carregando from '@/components/Carregando';
+import NovaEmpresaForm from '@/components/NovaEmpresaForm';
 
 export default function Empresas({ changePage }) {
   const [loading, setLoading] = useState(false);
@@ -130,8 +126,4 @@ export default function Empresas({ changePage }) {
       {(alterar) ? <NovaEmpresaForm handleSubmit={(id) => handleSubmit(id)} cancel={() => setAlterar(false)} valores={empresa} deletarEmpresa={deletarEmpresa}/> : null}
     </>
   );
-}
-
-Empresas.propTypes = {
-  changePage: PropTypes.func,
 }
