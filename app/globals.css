@@ -100,7 +100,7 @@ main form select {
 }
 
 main form div.select {
-  @apply flex gap-3 p-2 pt-3;
+  @apply flex gap-3 p-2;
 }
 
 main form button {

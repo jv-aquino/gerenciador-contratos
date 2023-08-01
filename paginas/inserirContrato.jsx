@@ -1,3 +1,4 @@
+import axios from "axios";
 import supabase from "@/lib/supabase";
 
 export default function Inserir({ changePage }) {
@@ -56,7 +57,7 @@ export default function Inserir({ changePage }) {
         <label htmlFor="numero_contrato"><span className="required">*</span>Número do Contrato:</label>
         <input type="text" id="numero_contrato" name="numero_contrato" placeholder="00/2023" required />
 
-        <div className="select">
+        <div className="select pb-1">
           <label htmlFor="tipo"><span className="required">*</span>Tipo:</label>
           <select id="tipo" name="tipo" required>
             <option value="Licitação">Licitação</option>
@@ -64,21 +65,24 @@ export default function Inserir({ changePage }) {
           </select>
         </div>
 
-        <label htmlFor="empresa"><span className="required">*</span>ID da Empresa:</label>
-        <input type="text" id="empresa" name="empresa" required />
-
-        <div className="select">
+        <div className="select pt-0 pb-3">
           <label htmlFor="unidade"><span className="required">*</span>Unidade:</label>
           <select id="unidade" name="unidade" required>
             <option value="Guara/FEG">Guara/FEG</option>
           </select>
         </div>
 
+        {/* Criar pesquisa de empresas */}
+        <label htmlFor="empresa"><span className="required">*</span>ID da Empresa:</label>
+        <input type="text" id="empresa" name="empresa" required />
+
         <label htmlFor="vigencia_inicio"><span className="required">*</span>Vigência Início:</label>
         <input type="date" id="vigencia_inicio" name="vigencia_inicio" required />
 
         <label htmlFor="vigencia_final"><span className="required">*</span>Vigência Final:</label>
         <input type="date" id="vigencia_final" name="vigencia_final" required />
+
+        {/* Criar opção de adicionar responsáveis*/}
 
         <label htmlFor="valor">Valor:</label>
         <input type="number" id="valor" name="valor" step="0.01" min="0" pattern="^\d+(,\d{1,2})?$" title="Informe um valor válido" placeholder="1000,00" required />
