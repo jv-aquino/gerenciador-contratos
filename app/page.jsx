@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 import Inicio from '@/paginas/inicio'
-import Login from '@/paginas/login'
+import Login from '@/app/login'
 
 import Contratos from '@/paginas/contratos'
 import Inserir from '@/paginas/inserirContrato'
