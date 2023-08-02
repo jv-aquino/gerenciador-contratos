@@ -2,7 +2,7 @@ import { useState } from "react";
 import useData from "@/lib/useData";
 
 import Carregando from '@/components/Carregando';
-import ShowEmpresa from "@/components/ShowEmpresa";
+import ShowEmpresa from "@/components/empresa/ShowEmpresa";
 
 export default function Contratos({ setIdContrato, changePage }) {
   const [tableData, setTableData] = useState([]);

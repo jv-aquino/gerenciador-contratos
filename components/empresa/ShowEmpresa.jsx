@@ -1,4 +1,4 @@
-import Carregando from './Carregando';
+import Carregando from '../Carregando';
 
 import supabase from '@/lib/supabase';
 import { useState, useEffect } from 'react';

@@ -72,7 +72,7 @@ main div p {
   text-align: justify;
 }
 
-main form, 
+main form:not(.noShadow), 
 main div.content {
   box-shadow: inset 0 2px 0 rgb(204,204,235);
   @apply drop-shadow-lg;
@@ -112,7 +112,8 @@ span.required {
   @apply text-red-600;
 }
 
-.visibleForm {
+.visibleForm,
+.modal {
   position: fixed;
   top: 0;
   width: 100%;

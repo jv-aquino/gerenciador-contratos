@@ -1,7 +1,31 @@
-import axios from "axios";
+import { toast } from "react-toastify";
 import supabase from "@/lib/supabase";
 
+import SearchEmpresa from "@/components/empresa/SearchEmpresa";
+import { useState } from "react";
+
 export default function Inserir({ changePage }) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [empresaId, setEmpresaId] = useState('');
+
+  const handleSearchEmpresa = async (searchQuery) => {
+    const { data: empresas, error } = await supabase
+      .from('empresa')
+      .select('id')
+      .eq('Nome_Legal', searchQuery)
+      .single();
+
+    if (error) {
+      console.error('Erro:', error);
+    } else if (empresas) {
+      setEmpresaId(empresas.id);
+      toast.success("ID da Empresa adicionado")
+      setModalOpen(false);
+    } else {
+      toast.error("Empresa não encontrada")
+    }
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -72,9 +96,9 @@ export default function Inserir({ changePage }) {
           </select>
         </div>
 
-        {/* Criar pesquisa de empresas */}
+        <button type="button" onClick={() => setModalOpen(true)}>Pesquisar Empresa <span className="symbol">search</span></button>
         <label htmlFor="empresa"><span className="required">*</span>ID da Empresa:</label>
-        <input type="text" id="empresa" name="empresa" required />
+        <input type="text" id="empresa" name="empresa" value={empresaId} onChange={(e) => setEmpresaId(e.target.value)} required />
 
         <label htmlFor="vigencia_inicio"><span className="required">*</span>Vigência Início:</label>
         <input type="date" id="vigencia_inicio" name="vigencia_inicio" required />
@@ -89,6 +113,8 @@ export default function Inserir({ changePage }) {
 
         <input className="bg-light-blue-600 border-0 cursor-pointer text-white p-2 mt-2" type="submit" value="Enviar" />
       </form>
+
+      {(modalOpen) ? <SearchEmpresa setOpen={setModalOpen} handleSearchEmpresa={handleSearchEmpresa} /> : null}
     </>
   )
 }

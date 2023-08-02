@@ -3,7 +3,7 @@ import useData from "@/lib/useData";
 import supabase from "@/lib/supabase";
 
 import Carregando from '@/components/Carregando';
-import NovaEmpresaForm from '@/components/NovaEmpresaForm';
+import NovaEmpresaForm from '@/components/empresa/NovaEmpresaForm';
 
 export default function Empresas({ changePage }) {
   const [loading, setLoading] = useState(false);
