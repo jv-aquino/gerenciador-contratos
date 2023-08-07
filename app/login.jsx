@@ -1,5 +1,6 @@
 import supabase from "@/lib/supabase"
 import { toast } from 'react-toastify';
+import toastBase from '@/components/toastBase'
 
 export default function Login({ changePage, setLogged }) {
   const handleLogin = async (e) => {
@@ -11,28 +12,10 @@ export default function Login({ changePage, setLogged }) {
     });
 
     if (error) {
-      toast.error('Email ou senha incorretos', {
-        position: "top-center",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error('Email ou senha incorretos', toastBase(4000));
     } 
     else {
-      toast.success('Sucesso!', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.success('Sucesso!', toastBase(3000));
 
       changePage("início");
       setLogged(true);

@@ -1,12 +1,17 @@
 import { toast } from "react-toastify";
+import toastBase from "../components/toastBase";
+
 import supabase from "@/lib/supabase";
 
 import SearchEmpresa from "@/components/empresa/SearchEmpresa";
+import { adicionarResponsavel } from "@/components/contratos/inserirHelper"
+
 import { useState } from "react";
 
 export default function Inserir({ changePage }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [empresaId, setEmpresaId] = useState('');
+  const [responsaveis, setResponsaveis] = useState([]);
 
   const handleSearchEmpresa = async (searchQuery) => {
     const { data: empresas, error } = await supabase
@@ -19,10 +24,10 @@ export default function Inserir({ changePage }) {
       console.error('Erro:', error);
     } else if (empresas) {
       setEmpresaId(empresas.id);
-      toast.success("ID da Empresa adicionado")
+      toast.success("ID da Empresa adicionado", toastBase(3000))
       setModalOpen(false);
     } else {
-      toast.error("Empresa não encontrada")
+      toast.error("Empresa não encontrada", toastBase(4000))
     }
   }
 
@@ -54,13 +59,26 @@ export default function Inserir({ changePage }) {
           Vigencia_final,
           Valor
         }
-      ]);
-  
-    if (error) {
-      console.error('Erro:', error);
+    ]).select("id");
+
+    const formattedResponsaveis = responsaveis.map((responsavel) => {
+      if (responsavel.contrato_id == null) {
+        const resp = { ...responsavel, contrato_id: data[0].id };
+        delete resp.Nome
+        return resp
+      }
+      return responsavel;
+    })
+
+    const { d, e } = await supabase.from('contrato_servidor').insert(formattedResponsaveis);
+
+    if (error || e) {
+      console.error('Erro:', error, e);
+      toast.error("Erro: verifique as informações inseridas", toastBase(4000))
     } else {
       console.log('Sucesso:', data);
-      changePage("contratos");
+      toast.success("Contrato inserido com sucesso", toastBase(3000))
+      changePage("contratos")
     }
   };
   
@@ -71,7 +89,7 @@ export default function Inserir({ changePage }) {
 
       <form onSubmit={handleSubmit}
       className="bg-white rounded-md p-3 m-auto
-      flex flex-col items-center gap-2">
+      flex flex-col items-center gap-2 w-[330px]">
         <label htmlFor="objeto"><span className="required">*</span>Objeto:</label>
         <input type="text" id="objeto" name="objeto" placeholder="Nome do Contrato" required />
 
@@ -96,20 +114,37 @@ export default function Inserir({ changePage }) {
           </select>
         </div>
 
-        <button type="button" onClick={() => setModalOpen(true)}>Pesquisar Empresa <span className="symbol">search</span></button>
-        <label htmlFor="empresa"><span className="required">*</span>ID da Empresa:</label>
-        <input type="text" id="empresa" name="empresa" value={empresaId} onChange={(e) => setEmpresaId(e.target.value)} required />
-
         <label htmlFor="vigencia_inicio"><span className="required">*</span>Vigência Início:</label>
         <input type="date" id="vigencia_inicio" name="vigencia_inicio" required />
 
         <label htmlFor="vigencia_final"><span className="required">*</span>Vigência Final:</label>
         <input type="date" id="vigencia_final" name="vigencia_final" required />
 
-        {/* Criar opção de adicionar responsáveis*/}
-
         <label htmlFor="valor">Valor:</label>
         <input type="number" id="valor" name="valor" step="0.01" min="0" pattern="^\d+(,\d{1,2})?$" title="Informe um valor válido" placeholder="1000,00" required />
+
+        <button type="button" onClick={() => setModalOpen(true)}>Pesquisar Empresa <span className="symbol">search</span></button>
+        <label htmlFor="empresa"><span className="required">*</span>ID da Empresa:</label>
+        <input type="text" id="empresa" name="empresa" value={empresaId} onChange={(e) => setEmpresaId(e.target.value)} required />
+
+        {/* Criar opção de adicionar responsáveis*/}
+        <h3 className="font-semibold text-xl pt-4">Responsáveis</h3>
+        <ul className="list-disc">
+          {responsaveis.map((responsavel, index) => (
+            <li key={index}>
+              ID: {responsavel.servidor_id}, Função: {responsavel.Funcao}
+            </li>
+          ))}
+        </ul>
+
+        <div className="responsavel relative bottom-2 flex flex-col items-center">
+          <label htmlFor="responsavel_email">Email do Responsável:</label>
+          <input type="email" id="responsavel_email" name="responsavel_email" placeholder="Email do Responsável" />
+
+          <label htmlFor="responsavel_funcao">Função do Responsável:</label>
+          <input type="text" id="responsavel_funcao" name="responsavel_funcao" placeholder="Função do Responsável" />
+        </div>
+        <button type="button" onClick={() => adicionarResponsavel(responsaveis, setResponsaveis)}>Adicionar Responsável</button>
 
         <input className="bg-light-blue-600 border-0 cursor-pointer text-white p-2 mt-2" type="submit" value="Enviar" />
       </form>

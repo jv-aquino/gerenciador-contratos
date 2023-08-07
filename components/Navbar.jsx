@@ -1,5 +1,7 @@
 import supabase from '@/lib/supabase';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
+import toastBase from './toastBase';
 
 export default function Navbar({ changePage, logged, setLogged }) {
   return (
@@ -32,6 +34,7 @@ export default function Navbar({ changePage, logged, setLogged }) {
           <li className="cursor-pointer" onClick={() => {
             supabase.auth.signOut();
             setLogged(false);
+            toast.success("Logout efetuado.", toastBase(3000))
             changePage('início');
           }}><span className="symbol">logout</span></li> 
         </>
