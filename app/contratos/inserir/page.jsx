@@ -46,6 +46,7 @@ export default function Inserir() {
     const Vigencia_inicio = formData.get('vigencia_inicio');
     const Vigencia_final = formData.get('vigencia_final');
     const Valor = formData.get('valor');
+    const Valor_Empenhado = formData.get('valor_empenhado');
   
     const { data, error } = await supabase
       .from('contrato')
@@ -59,7 +60,8 @@ export default function Inserir() {
           Unidade,
           Vigencia_inicio,
           Vigencia_final,
-          Valor
+          Valor,
+          Valor_Empenhado
         }
     ]).select("id");
 
@@ -123,7 +125,9 @@ export default function Inserir() {
         <input type="date" id="vigencia_final" name="vigencia_final" required />
 
         <label htmlFor="valor">Valor:</label>
-        <input type="number" id="valor" name="valor" step="0.01" min="0" pattern="^\d+(,\d{1,2})?$" title="Informe um valor válido" placeholder="1000,00" required />
+        <input type="number" id="valor" name="valor" step="0.01" min="0" pattern="^\d+(,\d{1,2})?$" title="Informe um valor válido" placeholder="10000.00" required />
+        <label htmlFor="valor_empenhado">Valor Empenhado (Total):</label>
+        <input type="number" id="valor_empenhado" name="valor_empenhado" step="0.01" min="0" pattern="^\d+(,\d{1,2})?$" title="Informe um valor válido" placeholder="5000.00" required />
 
         <button type="button" onClick={() => setModalOpen(true)}>Pesquisar Empresa <span className="symbol">search</span></button>
         <label htmlFor="empresa"><span className="required">*</span>ID da Empresa:</label>
