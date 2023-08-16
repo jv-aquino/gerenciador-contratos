@@ -5,7 +5,7 @@ import supabase from "@/lib/supabase";
 import Carregando from '@/components/Carregando';
 import NovaEmpresaForm from '@/components/empresa/NovaEmpresaForm';
 
-export default function Empresas({ changePage }) {
+export default function Empresas() {
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
   const [tableData, setTableData] = useState([]);
@@ -28,8 +28,7 @@ export default function Empresas({ changePage }) {
       console.log(error)
       alert(error);
     } else {
-      changePage("início");
-      setTimeout(() => {changePage("empresas")}, 1);
+      window.location.reload(true);
     }
   }
 
@@ -50,8 +49,7 @@ export default function Empresas({ changePage }) {
       if (error) {
         console.log(error);
       } else {
-        changePage("início");
-        setTimeout(() => {changePage("empresas")}, 1);
+        window.location.reload(true)
       }
     } else {
       const { error } = await supabase
@@ -63,8 +61,7 @@ export default function Empresas({ changePage }) {
       if (error) {
         alert(error);
       } else {
-        changePage("início");
-        setTimeout(() => {changePage("empresas")}, 1);
+        window.location.reload(true)
       }
     }
   }

@@ -1,5 +1,7 @@
+"use client"
+
 import { toast } from "react-toastify";
-import toastBase from "../components/toastBase";
+import toastBase from "@/components/toastBase";
 
 import supabase from "@/lib/supabase";
 
@@ -8,7 +10,7 @@ import { adicionarResponsavel } from "@/components/contratos/inserirHelper"
 
 import { useState } from "react";
 
-export default function Inserir({ changePage }) {
+export default function Inserir() {
   const [modalOpen, setModalOpen] = useState(false);
   const [empresaId, setEmpresaId] = useState('');
   const [responsaveis, setResponsaveis] = useState([]);
@@ -78,7 +80,7 @@ export default function Inserir({ changePage }) {
     } else {
       console.log('Sucesso:', data);
       toast.success("Contrato inserido com sucesso", toastBase(3000))
-      changePage("contratos")
+      window.location.assign("/contratos")
     }
   };
   

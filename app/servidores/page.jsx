@@ -6,7 +6,7 @@ import Carregando from '@/components/Carregando';
 
 import NovoServidor from '@/components/NovoServidor';
 
-export default function Servidores({ changePage }) {
+export default function Servidores() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
@@ -29,8 +29,7 @@ export default function Servidores({ changePage }) {
       console.log(error)
       alert(error);
     } else {
-      changePage("início");
-      setTimeout(() => {changePage("servidores")}, 1);
+      window.location.reload(true);
     }
   }
 
@@ -50,8 +49,7 @@ export default function Servidores({ changePage }) {
       if (error) {
         alert(error);
       } else {
-        changePage("início");
-        setTimeout(() => {changePage("servidores")}, 1);
+        window.location.reload(true);
       }
     }
     else {
@@ -64,8 +62,7 @@ export default function Servidores({ changePage }) {
       if (error) {
         alert(error);
       } else {
-        changePage("início");
-        setTimeout(() => {changePage("servidores")}, 1);
+        window.location.reload(true);
       }
     }
   }

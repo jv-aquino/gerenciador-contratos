@@ -1,10 +1,14 @@
+"use client"
+
 import { useState } from "react";
 import useData from "@/lib/useData";
 
 import Carregando from '@/components/Carregando';
 import ShowEmpresa from "@/components/empresa/ShowEmpresa";
 
-export default function Contratos({ setIdContrato, changePage }) {
+import { parseISO, format } from 'date-fns';
+
+export default function Contratos() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showEmpresa, setShowEmpresa] = useState(false);
@@ -13,8 +17,8 @@ export default function Contratos({ setIdContrato, changePage }) {
   useData('contrato', 20, 'id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').then(value => {
     const formattedData = value.map(item => ({
       ...item,
-      "Vigencia_inicio": item["Vigencia_inicio"].replace(/-/g, '/'),
-      "Vigencia_final": item["Vigencia_final"].replace(/-/g, '/'),
+      "Vigencia_inicio": format(parseISO(item["Vigencia_inicio"]), 'dd/MM/yyyy'),
+      "Vigencia_final": format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy'),
       "Dias_Restantes": diasRestantes(item["Vigencia_final"])
     }));
 
@@ -61,7 +65,7 @@ export default function Contratos({ setIdContrato, changePage }) {
                 ) 
                 : (index == 8 && value) ? (
                   <td key={index}>
-                    <span className={"font-semibold " + ((value <= 30) ? "text-red-700" : ((value <= 90) ? "text-amber-600" : ""))}>
+                    <span className={"font-semibold " + ((value <= 40) ? "text-red-700" : ((value <= 120) ? "text-amber-600" : ""))}>
                       {(value < 0) ? "Expirado" : value}
                     </span>
                   </td>
@@ -71,8 +75,7 @@ export default function Contratos({ setIdContrato, changePage }) {
                 )})}
 
                 <td className="font-semibold alterar"><button type="button" onClick={() => {
-                  setIdContrato(Object.values(row)[0]);
-                  changePage("verContrato")
+                  window.location.assign("/contratos/" + Object.values(row)[0])
                 }}>Menu +</button></td>
               </tr>
             )})}

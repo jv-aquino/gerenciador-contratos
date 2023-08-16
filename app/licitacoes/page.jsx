@@ -9,7 +9,7 @@ export default function Licitacoes() {
 
   useData('licitacao', 20).then(value => {
     setTableData(value);
-    setLoading(true);
+    setLoading(false);
   })
 
   return (
@@ -17,7 +17,7 @@ export default function Licitacoes() {
       <h1>Licitações</h1>
 
       <div>
-        {(loading) ? (
+        {(!loading) ? (
         <table>
           <thead>
             <tr>

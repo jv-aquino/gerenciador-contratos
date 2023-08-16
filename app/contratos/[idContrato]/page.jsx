@@ -1,10 +1,19 @@
+"use client"
+
 import { useState, useEffect, useRef } from "react";
+import { useParams } from 'next/navigation'
+
 import supabase from "@/lib/supabase";
 import ReactToPrint from "react-to-print";
 
 import Carregando from '@/components/Carregando';
 
-export default function VerContrato({ id }) {
+const { parseISO, format } = require('date-fns');
+
+export default function VerContrato() {
+  const params = useParams();
+  const id = params.idContrato;
+
   const relatorio = useRef();
 
   const [loading, setLoading] = useState(true);
@@ -14,8 +23,8 @@ export default function VerContrato({ id }) {
     supabase.from('contrato').select('*').eq('id', id).then(res => {
       if (res) {
         const item = res.data[0];
-        item["Vigencia_inicio"] = item["Vigencia_inicio"].replace(/-/g, '/');
-        item["Vigencia_final"] = item["Vigencia_final"].replace(/-/g, '/');
+        item["Vigencia_inicio"] = format(parseISO(item["Vigencia_inicio"]), 'dd/MM/yyyy')
+        item["Vigencia_final"] = format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy')
         item["Dias_Restantes"] = diasRestantes(item["Vigencia_final"]);
 
         setContrato(item);
@@ -59,12 +68,15 @@ export default function VerContrato({ id }) {
         <p>Valor: <span className="font-medium">R$ {parseFloat(contrato["Valor"]).toFixed(2).replace('.', ',')}</span></p>
         <p>A ser pago: <span className="font-medium text-red-700">R$ {parseFloat(contrato["Valor"] - contrato["Pago"]).toFixed(2).replace('.', ',')}</span></p>
         <br/>
-        <p>Dias até o fim da vigência: <span className={"font-semibold " + ((contrato["Dias_Restantes"] <= 30) ? "text-red-700" : ((contrato["Dias_Restantes"] <= 90) ? "text-amber-600" : ""))}>
+        <p>Dias até o fim da vigência: <span className={"font-semibold " + ((contrato["Dias_Restantes"] <= 40) ? "text-red-700" : ((contrato["Dias_Restantes"] <= 120) ? "text-amber-600" : ""))}>
             {(contrato["Dias_Restantes"] < 0) ? "Expirado" : contrato["Dias_Restantes"]}
-        </span>
+        </span></p>
 
         {/* menu de responsáveis pelo contrato */}
-        </p>
+        <button type="button">Responsáveis</button>
+        
+        {/* menu de notas fiscais */}
+        <button type="button">Notas Fiscais</button>
       </div>
     </>
     ) : <div className="pt-20">

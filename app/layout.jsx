@@ -5,6 +5,8 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/quicksand';
 
 import { ToastContainer } from 'react-toastify';
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar';
 
 export const metadata = {
   title: 'Gerenciador de Contratos',
@@ -16,7 +18,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <ToastContainer />
-        {children}
+        <Navbar />
+          <main>  
+            {children}
+          </main>
+        <Footer />
       </body>
     </html>
   )
