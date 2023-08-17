@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react";
-import useData from "@/lib/useData";
+import { useState, useEffect } from "react";
+import getData from "@/lib/useData";
 
 import Carregando from '@/components/Carregando';
 import ShowEmpresa from "@/components/empresa/ShowEmpresa";
@@ -14,17 +14,23 @@ export default function Contratos() {
   const [showEmpresa, setShowEmpresa] = useState(false);
   const [ID, setID] = useState(false);
 
-  useData('contrato', 20, 'id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').then(value => {
-    const formattedData = value.map(item => ({
-      ...item,
-      "Vigencia_inicio": format(parseISO(item["Vigencia_inicio"]), 'dd/MM/yyyy'),
-      "Vigencia_final": format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy'),
-      "Dias_Restantes": diasRestantes(item["Vigencia_final"])
-    }));
+  useEffect(() => {
+    getData('contrato', 20, 'id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').then(value => {
+      const formattedData = value.map(item => {
+        return {
+          ...item,
+          "Vigencia_inicio": format(parseISO(item["Vigencia_inicio"]), 'dd/MM/yyyy'),
+          "Vigencia_final": format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy'),
+          "Dias_Restantes": diasRestantes(item["Vigencia_final"])
+        };
+      });
 
-    setTableData(formattedData);
-    setLoading(true);
-  })
+      setTableData(formattedData.filter(item => {
+        return item["Dias_Restantes"] > -30;
+      }));
+      setLoading(true);
+    })
+  }, []);
   
   const diasRestantes = (dataFinal) => {
     const oneDay = 24 * 60 * 60 * 1000; // ms em um dia
