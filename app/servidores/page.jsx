@@ -1,5 +1,7 @@
+"use client"
+
 import { useState, useEffect } from "react";
-import useData from "@/lib/useData";
+import getData from "@/lib/useData";
 import supabase from "@/lib/supabase";
 
 import Carregando from '@/components/Carregando';
@@ -10,11 +12,13 @@ export default function Servidores() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
-
-  useData('servidor', 20).then(value => {
-    setTableData(value);
-    setLoading(true);
-  })
+  
+  useEffect(() => {
+    getData('servidor', 20).then(value => {
+      setTableData(value);
+      setLoading(true);
+    })
+  }, [])
 
   const [alterar, setAlterar] = useState(false);
   const [servidor, setServidor] = useState({});

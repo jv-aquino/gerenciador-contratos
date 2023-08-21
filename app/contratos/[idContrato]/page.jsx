@@ -7,6 +7,7 @@ import supabase from "@/lib/supabase";
 import ReactToPrint from "react-to-print";
 
 import Carregando from '@/components/Carregando';
+import MenuContrato from '@/components/contratos/MenuContrato';
 
 const { parseISO, format } = require('date-fns');
 
@@ -18,6 +19,7 @@ export default function VerContrato() {
 
   const [loading, setLoading] = useState(true);
   const [contrato, setContrato] = useState({});
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     supabase.from('contrato').select('*').eq('id', id).then(res => {
@@ -43,6 +45,7 @@ export default function VerContrato() {
 
   return (
   <>  
+    {(menuOpen) ? <MenuContrato onClose={() => setMenuOpen(false)} id={id} /> : null}
     {(!loading) ? (
     <>
       <h1>Contrato #{contrato.id}</h1>
@@ -74,11 +77,7 @@ export default function VerContrato() {
             {(contrato["Dias_Restantes"] < 0) ? "Expirado" : contrato["Dias_Restantes"]}
         </span></p>
 
-        {/* menu de responsáveis pelo contrato */}
-        <button type="button">Responsáveis</button>
-        
-        {/* menu de notas fiscais */}
-        <button type="button">Notas Fiscais</button>
+        <button type="button" className="botaoVerde invertido font-medium text-xl w-fit pt-1 mx-auto" onClick={() => setMenuOpen(true)}><span className="symbol pr-0.5">add</span>Menu</button>
       </div>
     </>
     ) : <div className="pt-20">

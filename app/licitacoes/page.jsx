@@ -1,5 +1,7 @@
-import { useState } from "react";
-import useData from "@/lib/useData";
+"use client"
+
+import { useState, useEffect } from "react";
+import getData from "@/lib/useData";
 
 import Carregando from '@/components/Carregando';
 
@@ -7,10 +9,12 @@ export default function Licitacoes() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useData('licitacao', 20).then(value => {
-    setTableData(value);
-    setLoading(false);
-  })
+  useEffect(() => {
+    getData('licitacao', 20).then(value => {
+      setTableData(value);
+      setLoading(true);
+    })
+  }, [])
 
   return (
     <>

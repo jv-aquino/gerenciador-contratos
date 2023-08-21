@@ -26,34 +26,33 @@ export default function Navbar() {
       <Image src="/logo2.png" width={220} height={80} alt="Logo do sistema de contratos. Clique para voltar ao início" className='cursor-pointer' onClick={() => window.location.assign("/")} />
 
       <ul className='text-white font-medium text-[1.52rem] flex items-center gap-2'>
-        <li><Link href="/">Início</Link></li>
-        {(!logged) ? <li onClick={() => changePage('login')}>Login</li> : null}
+        <Link href="/">Início</Link>
+        {(!logged) ? <Link href="/login">Login</Link> : null}
         {(logged) ? (
         <>
           <div className="dropdown">
             <li>Contratos<span className="symbol">expand_more</span></li>
             <ul>
-              <li><Link href="/contratos">Visualizar</Link></li>
-              <li><Link href="/contratos/inserir">Novo</Link></li>
+              <Link href="/contratos">Visualizar</Link>
+              <Link href="/contratos/inserir">Novo</Link>
             </ul>
           </div>
           
-          <li><Link href="/licitacoes">Licitações</Link></li>
+          <Link href="/licitacoes">Licitações</Link>
 
           <div className="dropdown">
             <li>Outros<span className="symbol">expand_more</span></li>
             <ul>
-              <li><Link href="/empresas">Empresas</Link></li>
-              <li><Link href="/servidores">Servidores</Link></li>
+              <Link href="/empresas">Empresas</Link>
+              <Link href="/servidores">Servidores</Link>
             </ul>
           </div>
 
-          <li className="cursor-pointer" onClick={() => {
+          <Link href="/" className="cursor-pointer" onClick={() => {
             supabase.auth.signOut();
             setLogged(false);
             toast.success("Logout efetuado.", toastBase(3000))
-            window.location.assign("/")
-          }}><span className="symbol">logout</span></li> 
+          }}><span className="symbol">logout</span></Link> 
         </>
         ) : null}
       </ul>

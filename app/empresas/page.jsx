@@ -1,5 +1,5 @@
-import { useState } from "react";
-import useData from "@/lib/useData";
+import { useState, useEffect } from "react";
+import getData from "@/lib/useData";
 import supabase from "@/lib/supabase";
 
 import Carregando from '@/components/Carregando';
@@ -10,10 +10,13 @@ export default function Empresas() {
   const [visibleForm, setVisibleForm] = useState(false);
   const [tableData, setTableData] = useState([]);
 
-  useData('empresa', 20).then(value => {
-    setTableData(value);
-    setLoading(true);
-  })
+  useEffect(() => {
+    getData('empresa', 20).then(value => {
+      setTableData(value);
+      setLoading(true);
+    })
+  }, [])
+  
 
   const [alterar, setAlterar] = useState(false);
   const [empresa, setEmpresa] = useState({});

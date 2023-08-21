@@ -17,6 +17,9 @@ export default function Contratos() {
   useEffect(() => {
     getData('contrato', 20, 'id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').then(value => {
       const formattedData = value.map(item => {
+        if (diasRestantes(format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy')) < -45) {
+          return null
+        }
         return {
           ...item,
           "Vigencia_inicio": format(parseISO(item["Vigencia_inicio"]), 'dd/MM/yyyy'),
@@ -25,9 +28,7 @@ export default function Contratos() {
         };
       });
 
-      setTableData(formattedData.filter(item => {
-        return item["Dias_Restantes"] > -30;
-      }));
+      setTableData(formattedData);
       setLoading(true);
     })
   }, []);
