@@ -35,6 +35,7 @@ export default function Navbar() {
             <ul>
               <Link href="/contratos">Visualizar</Link>
               <Link href="/contratos/inserir">Novo</Link>
+              <Link href="/contratos/pesquisar">Pesquisar</Link>
             </ul>
           </div>
           

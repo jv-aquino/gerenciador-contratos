@@ -19,7 +19,7 @@ export default function Inserir() {
     const { data: empresas, error } = await supabase
       .from('empresa')
       .select('id')
-      .eq('Nome_Legal', searchQuery)
+      .ilike('Nome_Legal', `%${searchQuery}%`)
       .single();
 
     if (error) {

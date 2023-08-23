@@ -17,13 +17,14 @@ export default function Contratos() {
   useEffect(() => {
     getData('contrato', 20, 'id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').then(value => {
       const formattedData = value.map(item => {
-        if (diasRestantes(format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy')) < -45) {
+        let vigenciaFinal = format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy')
+        if (diasRestantes(vigenciaFinal) < -45) {
           return null
         }
         return {
           ...item,
           "Vigencia_inicio": format(parseISO(item["Vigencia_inicio"]), 'dd/MM/yyyy'),
-          "Vigencia_final": format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy'),
+          "Vigencia_final": vigenciaFinal,
           "Dias_Restantes": diasRestantes(item["Vigencia_final"])
         };
       });

@@ -224,6 +224,9 @@ nav .dropdown {
   position: relative;
   bottom: 2px;
 }
+nav .dropdown, nav .dropdown * {
+  z-index: 99;
+}
 
 nav .dropdown ul {
   display: block;
@@ -237,6 +240,8 @@ nav .dropdown ul {
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  
+  @apply drop-shadow-xl;
 }
 
 nav .dropdown ul a:first-child {
