@@ -24,7 +24,7 @@ export default function ShowEmpresa ({ id, cancel }) {
           <>
             <h2 className='font-semibold text-2xl text-dark-blue-500 m-auto'>{data.Nome_Legal}</h2>
             <p>
-              CNPJ/CPF: <span className='font-semibold'>{data['CNPJ/CPF']}</span>
+              CNPJ/CPF: <span className='font-semibold'>{data['CNPJ_ou_CPF']}</span>
             </p>
             <p>
               Pessoa {data.Pessoa}

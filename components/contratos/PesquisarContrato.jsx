@@ -21,7 +21,7 @@ export default function PesquisarContrato() {
       .select("*")
       .ilike('Processo', `%${pesquisa}%`).single();
 
-      if (error) { 
+      if (!Array.from(data).length) { 
         toast.error("Nenhum contrato encontrado", toastBase(3000))
         setContratos([])
         return 
@@ -34,31 +34,32 @@ export default function PesquisarContrato() {
       .from('servidor')
       .select("*")
       .eq('Email', pesquisa).single();
-      console.log(res)
       
       const { data, error } = await supabase.from('contrato_servidor')
       .select("*").eq("servidor_id", res?.data?.id);
 
-      if (!data || error) { 
+      if (!Array.from(data).length) { 
         toast.error("Nenhum contrato encontrado", toastBase(3000))
         setContratos([])
         return 
       }
+
       toast.success("Contrato(s) encontrado(s)", toastBase(3000))
       setContratos(data);
     } 
     else {
       let res = await supabase
-      .from('empresa').select("*").eq("CNPJ/CPF", pesquisa);
-      console.log(res, pesquisa)
-      let { data, error } = await supabase.from('contrato')
+      .from('empresa').select("*").ilike("CNPJ_ou_CPF", `%${pesquisa}%`).single();
+      
+      const { data, error } = await supabase.from('contrato')
       .select("*").eq("Empresa", res?.data?.id);
 
-      if (!data || error) { 
+      if (!Array.from(data).length) { 
         toast.error("Nenhum contrato encontrado", toastBase(3000))
         setContratos([])
         return 
       }
+
       toast.success("Contrato(s) encontrado(s)", toastBase(3000))
       setContratos(data);
     }
@@ -92,8 +93,9 @@ export default function PesquisarContrato() {
         <h2 className="text-3xl font-semibold">Contratos Encontrados</h2>
         <ul className="text-black">
           {contratos.map(contrato => (
-          <li key={((contrato.id) ? contrato.id : contrato.contrato_id)}>
-            <Link href={"/contratos/" + ((contrato.id) ? contrato.id : contrato.contrato_id)}>ID do contrato:{((contrato.id) ? contrato.id : contrato.contrato_id)}</Link>
+          <li key={((contrato.id) ? contrato.id : contrato.contrato_id)}
+          className="font-medium text-lg text-dark-blue-500">
+            <Link href={"/contratos/" + ((contrato.id) ? contrato.id : contrato.contrato_id)}><span className="symbol">add_circle</span> ID do contrato: {((contrato.id) ? contrato.id : contrato.contrato_id)}</Link>
           </li>))}
         </ul>
       </div>) : null}
