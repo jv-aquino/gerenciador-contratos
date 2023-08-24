@@ -38,7 +38,7 @@ export default function Empresas() {
   const handleSubmit = async (id) => {
     const Nome_Legal = document.querySelector("#Nome_Legal").value;
     const Pessoa = document.querySelector("#Pessoa").value;
-    const CPF = document.querySelector("#CPF").value;
+    const CNPJ_ou_CPF = document.querySelector("#CPF").value;
     const Privada = document.querySelector("#Privada").value;
     const Situacao = document.querySelector("#Situacao").value;
 
@@ -46,7 +46,7 @@ export default function Empresas() {
       const { data, error } = await supabase
         .from('empresa') 
         .insert([
-          { Nome_Legal, 'CNPJ/CPF': CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao }
+          { Nome_Legal, CNPJ_ou_CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao }
         ]);
 
       if (error) {

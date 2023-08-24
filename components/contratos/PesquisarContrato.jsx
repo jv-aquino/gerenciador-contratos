@@ -19,7 +19,7 @@ export default function PesquisarContrato() {
       const { data, error } = await supabase
       .from('contrato')
       .select("*")
-      .ilike('Processo', `%${pesquisa}%`).single();
+      .eq('Processo', `${pesquisa}`).single();
 
       if (!Array.from(data).length) { 
         toast.error("Nenhum contrato encontrado", toastBase(3000))
@@ -85,7 +85,7 @@ export default function PesquisarContrato() {
          required
          value={pesquisa} onChange={(e) => setPesquisa(e.target.value)}/>
 
-        <button type="submit" className="botaoVerde text-xl font-medium pt-1"><span className='symbol pr-0.5'>search</span>Pesquisar</button>
+        <button type="submit" className="botaoVerde invertido text-xl font-medium pt-1"><span className='symbol pr-0.5'>search</span>Pesquisar</button>
       </form>
 
       {(contratos.length) ? (
@@ -94,8 +94,8 @@ export default function PesquisarContrato() {
         <ul className="text-black">
           {contratos.map(contrato => (
           <li key={((contrato.id) ? contrato.id : contrato.contrato_id)}
-          className="font-medium text-lg text-dark-blue-500">
-            <Link href={"/contratos/" + ((contrato.id) ? contrato.id : contrato.contrato_id)}><span className="symbol">add_circle</span> ID do contrato: {((contrato.id) ? contrato.id : contrato.contrato_id)}</Link>
+          className="font-medium text-xl text-dark-blue-500">
+            <Link href={"/contratos/" + ((contrato.id) ? contrato.id : contrato.contrato_id)}><span className="symbol">open_in_new</span> ID do contrato: {((contrato.id) ? contrato.id : contrato.contrato_id)}</Link>
           </li>))}
         </ul>
       </div>) : null}

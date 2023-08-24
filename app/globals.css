@@ -4,6 +4,7 @@
 
 @import url("./ReactToast.css");
 @import url("./tabela.css");
+@import url("./pdfs.css");
 
 html, body, :root {
   height: 100%;
@@ -235,7 +236,7 @@ nav .dropdown ul {
   height: 0;
 
   position: absolute;
-  top: 51px;
+  top: 52px;
 
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;

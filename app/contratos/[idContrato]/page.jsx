@@ -61,6 +61,8 @@ export default function VerContrato() {
           content={() => relatorio.current}
         />
 
+        <button type="button" className="absolute top-3 right-3 text-2xl" onClick={() => window.history.back()}><span className="symbol">reply</span></button>
+
         <h2 className="font-semibold text-3xl self-center">{contrato["Objeto"]}</h2>
         <h3 className="font-medium text-2xl italic pr-1.5 text-gray-400 self-center">{contrato["Tipo"]}</h3>
 

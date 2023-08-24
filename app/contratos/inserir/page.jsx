@@ -37,8 +37,17 @@ export default function Inserir() {
     event.preventDefault();
   
     const formData = new FormData(event.target);
-    const Objeto = formData.get('objeto');
     const Processo = formData.get('processo');
+
+    const res = await supabase.from('contrato').select('Processo').eq('Processo', Processo);
+    console.log(res.data)
+
+    if (res.data.length) {
+      let confirmacao = confirm("Há contrato(s) com esse mesmo Processo. Deseja continuar?")
+      if (!confirmacao) { return }
+    }
+
+    const Objeto = formData.get('objeto');
     const Numero_contrato = formData.get('numero_contrato');
     const Tipo = formData.get('tipo');
     const Empresa = formData.get('empresa');
@@ -47,7 +56,7 @@ export default function Inserir() {
     const Vigencia_final = formData.get('vigencia_final');
     const Valor = formData.get('valor');
     const Valor_Empenhado = formData.get('valor_empenhado');
-  
+    
     const { data, error } = await supabase
       .from('contrato')
       .insert([
