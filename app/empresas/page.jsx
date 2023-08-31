@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react";
 import getData from "@/lib/useData";
 import supabase from "@/lib/supabase";
@@ -35,18 +37,15 @@ export default function Empresas() {
     }
   }
 
-  const handleSubmit = async (id) => {
-    const Nome_Legal = document.querySelector("#Nome_Legal").value;
-    const Pessoa = document.querySelector("#Pessoa").value;
-    const CNPJ_ou_CPF = document.querySelector("#CPF").value;
-    const Privada = document.querySelector("#Privada").value;
-    const Situacao = document.querySelector("#Situacao").value;
+  const handleSubmit = async (id, values) => {
+    const { Nome_Legal, Pessoa, CNPJ_ou_CPF, Privada, Situacao, Cidade } = values;
+    console.log(values)
 
     if (!id) {
       const { data, error } = await supabase
         .from('empresa') 
         .insert([
-          { Nome_Legal, CNPJ_ou_CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao }
+          { Nome_Legal, CNPJ_ou_CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao, Cidade }
         ]);
 
       if (error) {
@@ -58,7 +57,7 @@ export default function Empresas() {
       const { error } = await supabase
         .from('empresa') 
         .update(
-          { Nome_Legal, 'CNPJ/CPF': CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao }
+          { Nome_Legal, 'CNPJ/CPF': CPF, Pessoa, "Empresa_Privada?": Privada, 'Situação': Situacao, Cidade }
         )
         .eq('id', id);
       if (error) {

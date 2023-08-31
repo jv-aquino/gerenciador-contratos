@@ -9,6 +9,8 @@ import ReactToPrint from "react-to-print";
 import Carregando from '@/components/Carregando';
 import MenuContrato from '@/components/contratos/MenuContrato';
 
+import ShowEmpresa from "@/components/empresa/ShowEmpresa";
+
 const { parseISO, format } = require('date-fns');
 
 export default function VerContrato() {
@@ -19,7 +21,9 @@ export default function VerContrato() {
 
   const [loading, setLoading] = useState(true);
   const [contrato, setContrato] = useState({});
+
   const [menuOpen, setMenuOpen] = useState(false);
+  const [empresaOpen, setEmpresaOpen] = useState(false);
 
   useEffect(() => {
     supabase.from('contrato').select('*').eq('id', id).then(res => {
@@ -45,7 +49,8 @@ export default function VerContrato() {
 
   return (
   <>  
-    {(menuOpen) ? <MenuContrato onClose={() => setMenuOpen(false)} id={id} /> : null}
+    {(menuOpen) ? <MenuContrato onClose={() => setMenuOpen(false)} id={id} openEmpresa={() => setEmpresaOpen(true)} /> : null}
+    {(empresaOpen) && <ShowEmpresa cancel={() => setEmpresaOpen(false)} id={contrato.Empresa} />}
     {(!loading) ? (
     <>
       <h1>Contrato #{contrato.id}</h1>

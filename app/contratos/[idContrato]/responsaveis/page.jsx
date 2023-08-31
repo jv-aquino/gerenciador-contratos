@@ -32,13 +32,17 @@ export default function Responsaveis() {
             <p key={fiscal.contrato_id}>
               <span className={"font-medium " + (fiscal.servidor.Ativo ? "text-green-600" : "text-red-600")}>{fiscal.servidor.Nome}</span> ({fiscal.servidor.Email}): {fiscal.Funcao}
             </p>
-          )
+          ) 
         })}
-        <p>
-          <span className="rounded-full p-2 h-fit w-fit bg-green-600"></span> - Ativo(a)
-          <span className="rounded-full p-2 h-fit w-fit bg-red-600"></span> - Inativo(a)
-        </p>
-        <button type="button" onClick={() => window.history.back()}>Voltar</button>
+        <div className="pt-2 flex items-center justify-center gap-2"><div className="rounded-full p-1.5 w-fit bg-green-600"></div>
+        <p className="text-[15px]"> - Ativo(a)</p>
+        </div>
+
+        <div className="pb-2 flex items-center justify-center gap-2"><div className="rounded-full p-1.5 w-fit bg-red-600"></div>
+        <p className="text-[15px]"> - Inativo(a)</p>
+        </div>
+
+        <button type="button" onClick={() => window.history.back()} className="font-semibold"><span className="symbol pr-0.5">reply</span>Voltar</button>
       </div>
     </>
   )

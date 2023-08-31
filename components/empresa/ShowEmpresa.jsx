@@ -33,6 +33,9 @@ export default function ShowEmpresa ({ id, cancel }) {
               Empresa {(data['Empresa_Privada?']) ? "Privada" : "Pública"}
             </p>
             <p>
+              Cidade: {data?.Cidade}
+            </p>
+            <p>
               Situação: {(data['Situação'] == 'Ativa') ? 
               <span className='text-green-700 font-semibold'>{data['Situação']}</span> : 
               <span className='text-red-700 font-semibold'>{data['Situação']}</span>}          
