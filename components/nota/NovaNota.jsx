@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 
-export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deletarEmpresa }) {
+export default function NovaEmpresaForm ({ idContrato, handleSubmit, cancel, valores, deletarEmpresa }) {
   let values = null;
   if (!values) {
     values = {};
-    values["Nome"] = values["CPF"] = values["id"] = values['Cidade'] = '';
-    values["Situacao"] = 'Ativa';
-    values["Privada"] = 'true';
-    values["Pessoa"] = 'Jurídica';
+    values["Numero"] = values["Valor"] = values["id"] = values['PDF'] = values["Data_de_Entrada"] ='';
+    values["id_contrato"] = idContrato;
   }
 
   useEffect(() => {
@@ -15,13 +13,11 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deleta
   }, [valores]);
 
   const [id, setId] = useState(values["id"]);
-  const [Nome_Legal, setNome] = useState(values["Nome"]);
-  const [cpf, setCpf] = useState(values["CPF"]);
-  const [Cidade, setCidade] = useState(values["Cidade"]);
-  const [Privada, setPrivada] = useState(String(values["Privada"]));  
-  const [Pessoa, setPessoa] = useState(values["Pessoa"]);
-  const [Situacao, setSituacao] = useState(values["Situacao"]);
-
+  const [Data_de_Entrada, setData] = useState(values["Data_de_Entrada"]);
+  const [PDF, setPDF] = useState(values["PDF"]);
+  const [Numero, setNumero] = useState(values["Numero"]);
+  const [Valor, setValor] = useState(values["Valor"]);
+  
   const [clicked, setClicked] = useState(false);
 
   return (
@@ -32,7 +28,7 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deleta
         if (clicked) {
           return;
         } setClicked(true);
-        handleSubmit(id, { CNPJ_ou_CPF: cpf, Nome_Legal, Situacao, Cidade, Privada, Pessoa });
+        handleSubmit(id, { Data_de_Entrada,  });
       }}>
           <label htmlFor='Nome_Legal'>Nome Legal:</label>
           <input type="text" id="Nome_Legal" required  value={Nome_Legal} placeholder='Empresa Ltda.' onChange={(e) => {
@@ -83,7 +79,7 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deleta
             {(!valores) ? 'Enviar' : 'Salvar'}
           </button>
           {(valores) ? <button type="button" className="bg-dark-blue-500 text-white" onClick={() => {deletarEmpresa(id)}}>
-            Deletar Empresa
+            Deletar Nota
           </button> : null}
           <button type="button" className="bg-red-600 text-black"
           onClick={cancel}>Cancelar</button>

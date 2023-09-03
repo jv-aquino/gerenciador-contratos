@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function MenuContrato({ onClose, id, openEmpresa }) {
+export default function MenuContrato({ onClose, id, openEmpresa, openRenovar }) {
   const path = `/contratos/${id}/`;
 
   return (
@@ -11,7 +11,13 @@ export default function MenuContrato({ onClose, id, openEmpresa }) {
           <button type="button" className="absolute top-[7px] right-2 text-[22px] font-semibold" onClick={() => onClose()}><span className="symbol">close</span></button>
           <div className="grid grid-cols-2 pt-1">
             <ul className="font-medium flex flex-col gap-1">
-              <Link href={path + 'responsaveis'}>Renovar</Link>
+              <li className="cursor-pointer" onClick={() => {
+                onClose();
+                openRenovar();
+                }}>
+                Renovar
+              </li>
+
               <Link href={path + 'responsaveis'}>Responsáveis</Link>
               <Link href={path + 'notas'}>Notas Fiscais</Link>
 

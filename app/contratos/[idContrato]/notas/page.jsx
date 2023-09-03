@@ -10,6 +10,7 @@ export default function NotasPage({ params }) {
   const [tableData, setTableData] = useState([]);
   const [semRes, setSemRes] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [nota, setNota] = useState({})
 
   useEffect(() => {
     supabase.from("notafiscal").select("*").range(0, 19).eq("id_contrato", params.idContrato).then(res => {
@@ -63,7 +64,7 @@ export default function NotasPage({ params }) {
                         "Numero": Object.values(row)[4],
                         "PDF": Object.values(row)[5]
                       }
-                      setEmpresa(valores);
+                      setNota(valores);
                       setAlterar(true);
                     }}><span className="symbol text-[23px]">edit</span></button>
                 </tr>

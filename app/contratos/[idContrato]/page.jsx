@@ -11,6 +11,8 @@ import MenuContrato from '@/components/contratos/MenuContrato';
 
 import ShowEmpresa from "@/components/empresa/ShowEmpresa";
 
+import Renovar from '@/components/contratos/Renovar';
+
 const { parseISO, format } = require('date-fns');
 
 export default function VerContrato() {
@@ -24,6 +26,8 @@ export default function VerContrato() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [empresaOpen, setEmpresaOpen] = useState(false);
+
+  const [renovarOpen, setRenovarOpen] = useState(false);
 
   useEffect(() => {
     supabase.from('contrato').select('*').eq('id', id).then(res => {
@@ -49,8 +53,11 @@ export default function VerContrato() {
 
   return (
   <>  
-    {(menuOpen) ? <MenuContrato onClose={() => setMenuOpen(false)} id={id} openEmpresa={() => setEmpresaOpen(true)} /> : null}
+    {(menuOpen) ? <MenuContrato onClose={() => setMenuOpen(false)} id={id} openEmpresa={() => setEmpresaOpen(true)} openRenovar={() => setRenovarOpen(true)} /> : null}
+
     {(empresaOpen) && <ShowEmpresa cancel={() => setEmpresaOpen(false)} id={contrato.Empresa} />}
+    {(renovarOpen) && <Renovar cancel={() => setRenovarOpen(false)} id={contrato.id} dados={contrato} />}
+
     {(!loading) ? (
     <>
       <h1>Contrato #{contrato.id}</h1>

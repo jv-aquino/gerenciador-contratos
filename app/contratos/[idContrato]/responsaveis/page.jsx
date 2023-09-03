@@ -15,7 +15,6 @@ export default function Responsaveis() {
   useEffect(() => {
     supabase.from("contrato_servidor").select("*, servidor(*)").eq("contrato_id", id).then(res => {
       if (res.data) {
-        console.log(res.data)
         setFiscais(res.data);
       }
     })
@@ -27,7 +26,6 @@ export default function Responsaveis() {
 
       <div className="content">
         {fiscais.map(fiscal => {
-          console.log(fiscal);
           return (
             <p key={fiscal.contrato_id}>
               <span className={"font-medium " + (fiscal.servidor.Ativo ? "text-green-600" : "text-red-600")}>{fiscal.servidor.Nome}</span> ({fiscal.servidor.Email}): {fiscal.Funcao}
