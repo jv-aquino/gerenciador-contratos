@@ -1,18 +1,21 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import supabase from '@/lib/supabase'
 
 import { toast } from 'react-toastify';
 import toastBase from '@/components/toastBase'
 
-import format from 'date-fns/format';
+import { parse, format } from 'date-fns';
 
 export default function RenovarContrato({ id, dados, cancel }) {
   const [Valor, setValor] =               useState(dados?.Valor ?? 0);
   const [Valor_Empenhado, setEmpenhado] = useState(dados?.Valor_Empenhado ?? 0);
   const [Pago, setPago] =            useState(dados?.Pago ?? 0);
-  const [Vigencia_final, setFinal] = useState(format(new Date(dados?.Vigencia_final ?? '01/01/0001'), 'yyyy-MM-dd'));
+  const [Vigencia_final, setFinal] = useState(format(parse(dados.Vigencia_final, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd'));
+
+  console.log(Vigencia_final)
+  const [clicked, setClicked] = useState(false);
 
   const handleSubmit = async () => {
     const { data, error } = await supabase.from("contrato").update({ Valor, Valor_Empenhado, Pago, Vigencia_final }).eq('id', id);
@@ -22,6 +25,7 @@ export default function RenovarContrato({ id, dados, cancel }) {
     } else {
       toast.error("Algo deu errado", toastBase(3000))
     }
+    window.location.assign("/contratos/" + id)
   }
   
   return (

@@ -33,9 +33,9 @@ export default function VerContrato() {
     supabase.from('contrato').select('*').eq('id', id).then(res => {
       if (res) {
         const item = res.data[0];
+        item["Dias_Restantes"] = diasRestantes(item["Vigencia_final"]);
         item["Vigencia_inicio"] = format(parseISO(item["Vigencia_inicio"]), 'dd/MM/yyyy')
         item["Vigencia_final"] = format(parseISO(item["Vigencia_final"]), 'dd/MM/yyyy')
-        item["Dias_Restantes"] = diasRestantes(item["Vigencia_final"]);
 
         setContrato(item);
         setLoading(false);
