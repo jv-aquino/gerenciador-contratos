@@ -5,6 +5,7 @@
 @import url("./ReactToast.css");
 @import url("./tabela.css");
 @import url("./pdfs.css");
+@import url("./footer.css");
 
 html, body, :root {
   height: 100%;
@@ -297,4 +298,40 @@ nav .dropdown > li span.symbol {
 }
 nav .dropdown:hover > li span.symbol {
   transform: rotate(180deg);
+}
+
+
+/* Highlight Animation (desktop) */
+@media screen and (min-width:850px) {
+  .highlight {
+    transform: perspective(0px) translateZ(0) translate3d(0,0,0);
+
+    cursor: default;
+    position: relative;
+  }
+  .highlight::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+
+    width: 0;
+    height: 2px;
+    border-radius: 20px;
+
+    transition: .6s;
+
+    @apply bg-light-blue-700;
+  } 
+  footer .highlight:hover {
+    text-shadow: 0 0 1px theme('colors.white');
+  }
+  .highlight:hover::after  {
+    width: 100%;
+  }
+
+  footer .highlight::after {
+    bottom: 0;
+    @apply bg-light-blue-500;
+  }
 }
