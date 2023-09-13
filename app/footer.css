@@ -49,9 +49,6 @@ footer li span {
 
 /* Desktop footer */
 footer img {
-  height: 125px;
-  width: 185px;
-
   grid-column: 1 / 1;
 }
 /* Mobile footer */
@@ -76,9 +73,6 @@ footer img {
     padding: 5px 0;
   }
   footer img {
-    width: 185px;
-    height: 121px;
-
     padding-top: 10px;
   }
   footer > div {

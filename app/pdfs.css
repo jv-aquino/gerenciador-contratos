@@ -1,0 +1,28 @@
+.pdf {
+  display: none;
+}
+
+@media print {
+  main {
+    font-family: Arial, Helvetica, sans-serif;
+
+    flex-direction: column;
+
+    @apply bg-white pt-4;
+  }
+  .pdf {
+    display: flex;
+  }
+
+  .dados {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .dados p {
+    font-size: 17px;
+  }
+  .dados span {
+    font-weight: 600;
+  }
+}

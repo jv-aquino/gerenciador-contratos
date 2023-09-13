@@ -1,12 +1,3 @@
-"use client"
-
-import Navbar from '@/components/Navbar'
-
-import Login from '@/app/login'
-
-import supabase from '@/lib/supabase'
-import { useEffect, useState } from 'react';
-
 export default function Home() {
   return (
     <>

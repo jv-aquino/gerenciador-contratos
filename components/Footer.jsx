@@ -1,7 +1,5 @@
-"use client"
-
-import React, { useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function Section({header, children}) {
   return (
@@ -18,24 +16,22 @@ function Li({text, icon, link}) {
   return (
     <li className={"highlight "}>
       
-      <a href={link} target="_blank">
+      <Link href={link} target="_blank">
         <span className="symbol">{icon}</span>
         {text}
-      </a>
+      </Link>
 
     </li>
   )
 }
 
-function Footer({ onLiClick }) {
-  const handleLiClick = useCallback(onLiClick, [onLiClick]);
-
+export default function Footer() {
   return (
     <footer className="bg-black grid px-2 py-7 mt-5">
       <Section header="Navegação">
         <Li text='Início'     link='/' icon='home' />
         <Li text='Contratos' link='/contratos' icon='sort' />
-        <Li text='Pesquisar Contratos' link='/contratos/pesquisar' icon='edit_square' />
+        <Li text='Pesquisar Contrato' link='/contratos/pesquisar' icon='search' />
         <Li text='Empresas' link='/empresas' icon='apartment' />
         <Li text='Fiscais' link='/servidores' icon='groups' />
         <Li text='Licitacoes' link='/licitacoes' icon='call' />
@@ -50,13 +46,7 @@ function Footer({ onLiClick }) {
       </Section>
           
 
-      <Image src="/logoUnesp.png" alt="Logo da Unesp" width={80} height={20} className="justify-self-center self-center cursor-pointer"
-      onClick={() => {
-        handleLiClick("início");
-        document.querySelector("#nav").scrollIntoView({ behavior: 'smooth' })
-      }}/>
+      <Image src="/logoUnespBranco.png" alt="Logo da Unesp" width={300} height={100} className="justify-self-center self-center"/>
     </footer>
   );
 }
-
-export default React.memo(Footer);

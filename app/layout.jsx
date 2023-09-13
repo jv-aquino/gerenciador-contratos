@@ -10,7 +10,7 @@ import Navbar from '@/components/Navbar';
 
 export const metadata = {
   title: 'Gerenciador de Contratos',
-  description: 'Sistema desenvolvido pela FEG/Unesp para gerenciamento e administração de contratos',
+  description: 'Sistema desenvolvido pela FEG/Unesp para gerenciamento e administração de contratos'
 }
 
 export default function RootLayout({ children }) {
