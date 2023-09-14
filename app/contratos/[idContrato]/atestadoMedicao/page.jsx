@@ -11,7 +11,7 @@ function Medicao({ params }) {
     supabase.from("contrato").select("*, empresa(*)").eq("id", params.idContrato).single().then(res => {
       setContrato(res.data)
     });
-  })
+  }, [])
 
   return ( 
     <>

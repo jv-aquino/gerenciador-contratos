@@ -42,7 +42,7 @@ export default function Footer() {
         <Li text='BEC' link='http://www.bec.sp.gov.br/BECSP/Home/Home.aspx' icon='token' />
         <Li text='TCE-SP' link='https://www.tce.sp.gov.br/cadtcesp/' icon='school' />
         <Li text='Publicação DOE-SP' link='https://pubnet.imprensaoficial.com.br/' icon='dns' />
-        <Li text='Site da STMA' link='https://www.feg.unesp.br/#!/instituicao/secao-tecnica-de-materiais/' icon='link' />
+        <Li text='Site da STMA' link='https://transparencia-compras.vercel.app/' icon='link' />
       </Section>
           
 
