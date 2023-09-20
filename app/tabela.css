@@ -40,3 +40,23 @@ table .empresa {
 table .alterar {
   line-height: 25px;
 }
+
+.paginacao {
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+
+  padding: 6px 4px;
+  border: 2px solid;
+  border-radius: 8px;
+  transition: .5s ease-out;
+
+  @apply rounded-md bg-grey-300 text-zinc-900 border-zinc-800;
+}
+.paginacao:hover,
+.paginacao.desativado {
+  @apply text-zinc-600 border-zinc-600;
+}
+.paginacao.desativado {
+  cursor: default;
+}
