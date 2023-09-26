@@ -13,7 +13,7 @@ import ShowEmpresa from "@/components/empresa/ShowEmpresa";
 
 import Renovar from '@/components/contratos/Renovar';
 
-const { parseISO, format } = require('date-fns');
+const { parseISO, parse, format, addMonths } = require('date-fns');
 
 export default function VerContrato() {
   const params = useParams();
@@ -80,8 +80,12 @@ export default function VerContrato() {
 
         <p>Processo: {contrato["Processo"]}</p>
         <p>Número do contrato: {contrato["Numero_contrato"]}</p>
-        <p>Fim do contrato: {contrato["Vigencia_final"]}</p>
         <p>Unidade: {contrato["Unidade"]}</p>
+        <br/>
+        <p>Início do contrato: {contrato["Vigencia_inicio"]}</p>
+        <p>Fim do contrato: {contrato["Vigencia_final"]}</p>
+        <p>Limite <b>máximo</b> de prorrogação: {format(addMonths(parse(contrato["Vigencia_inicio"], 'dd/MM/yyyy', new Date()), 60), 'dd/MM/yyyy')}</p>
+        <p></p>
         <br/>
         <p>Valor: <span className="font-medium">R$ {parseFloat(contrato["Valor"]).toFixed(2).replace('.', ',')}</span></p>
         <p>A ser pago: <span className="font-medium text-red-700">R$ {parseFloat(contrato["Valor"] - contrato["Pago"]).toFixed(2).replace('.', ',')}</span></p>
