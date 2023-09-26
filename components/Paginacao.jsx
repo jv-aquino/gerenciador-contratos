@@ -1,15 +1,15 @@
-function Paginacao({ paginacao, setPaginacao, length}) {
+function Paginacao({ paginacao, setPaginacao, length, range}) {
   return ( 
     <div className="m-auto pt-3 flex justify-center gap-2">
       <button type="button" onClick={() => {
-        if (paginacao <= 5) { return }
-        setPaginacao((prev) => prev - 5);
-      }} className={"paginacao " + ((paginacao <= 5) ? 'desativado' : '')}>
+        if (paginacao <= range) { return }
+        setPaginacao((prev) => prev - range);
+      }} className={"paginacao " + ((paginacao <= range) ? 'desativado' : '')}>
         Anterior
       </button>
       <button type="button" onClick={() => {
         if (paginacao > length) { return }
-        setPaginacao((prev) => prev + 5);
+        setPaginacao((prev) => prev + range);
       }} className={"paginacao " + ((paginacao > length) ? 'desativado' : '')} >
         Próximo
       </button>

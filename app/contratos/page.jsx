@@ -16,9 +16,7 @@ export default function Contratos() {
   const [showEmpresa, setShowEmpresa] = useState(false);
   const [ID, setID] = useState(false);
 
-  const [paginacao, setPaginacao] = useState(5);
-
-  console.log(tableData)
+  const [paginacao, setPaginacao] = useState(15);
 
   useEffect(() => {
     getData('contrato', undefined, 'id,Objeto,Processo,Numero_contrato,Vigencia_inicio,Vigencia_final,Empresa,Unidade').then(value => {
@@ -66,7 +64,7 @@ export default function Contratos() {
               </tr>
             </thead>
             <tbody>
-              {[...tableData].splice(paginacao - 5, 5).map((row, i) => {
+              {[...tableData].splice(paginacao - 15, 15).map((row, i) => {
                 return (
                 <tr key={i}>
                   {Object.values(row).map((value, index) => {
@@ -95,7 +93,7 @@ export default function Contratos() {
               )})}
             </tbody>
           </table>
-          <Paginacao paginacao={paginacao} setPaginacao={setPaginacao} length={tableData.length} />
+          <Paginacao paginacao={paginacao} setPaginacao={setPaginacao} length={tableData.length} range={15} />
         </>
         ) : <Carregando />}
 

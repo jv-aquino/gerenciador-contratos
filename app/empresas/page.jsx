@@ -7,13 +7,17 @@ import supabase from "@/lib/supabase";
 import Carregando from '@/components/Carregando';
 import NovaEmpresaForm from '@/components/empresa/NovaEmpresaForm';
 
+import Paginacao from "@/components/Paginacao";
+
 export default function Empresas() {
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
   const [tableData, setTableData] = useState([]);
 
+  const [paginacao, setPaginacao] = useState(15);
+
   useEffect(() => {
-    getData('empresa', 20).then(value => {
+    getData('empresa').then(value => {
       setTableData(value);
       setLoading(true);
     })
@@ -74,45 +78,49 @@ export default function Empresas() {
 
       <div>
         {(loading) ? (
-        <table>
-          <thead>
-            <tr>
-              {Object.keys(tableData[0]).map((column) => {
-                return (
-                <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
-              )})}
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map((row, index) => { 
-              return (
-              <tr key={index}>
-                {Object.values(row).map((value, index) => {
-                return (index == 2) ? (
-                  <td key={index} className="font-semibold alterar">{value}</td>
-                ) :
-                (
-                  <td key={index} className={(value === "Ativa") ? 'ativo' : (value === "Inativa") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
+        <>
+          <table>
+            <thead>
+              <tr>
+                {Object.keys(tableData[0]).map((column) => {
+                  return (
+                  <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
                 )})}
-                <td>
-                  <button className="alterar" onClick={() => {
-                    let valores = {
-                      "id": Object.values(row)[0],
-                      "Nome": Object.values(row)[1],
-                      "CPF": Object.values(row)[2],
-                      "Pessoa": Object.values(row)[3],
-                      "Privada": Object.values(row)[4],
-                      "Situacao": Object.values(row)[5]
-                    }
-                    setEmpresa(valores);
-                    setAlterar(true);
-                  }}><span className="symbol text-[23px]">edit</span></button>
-                </td>
+                <th></th>
               </tr>
-            )})}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {[...tableData].splice(paginacao - 15, 15).map((row, index) => {
+                return (
+                <tr key={index}>
+                  {Object.values(row).map((value, index) => {
+                  return (index == 2) ? (
+                    <td key={index} className="font-semibold alterar">{value}</td>
+                  ) :
+                  (
+                    <td key={index} className={(value === "Ativa") ? 'ativo' : (value === "Inativa") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
+                  )})}
+                  <td>
+                    <button className="alterar" onClick={() => {
+                      let valores = {
+                        "id": Object.values(row)[0],
+                        "Nome": Object.values(row)[1],
+                        "CPF": Object.values(row)[2],
+                        "Pessoa": Object.values(row)[3],
+                        "Privada": Object.values(row)[4],
+                        "Situacao": Object.values(row)[5]
+                      }
+                      setEmpresa(valores);
+                      setAlterar(true);
+                    }}><span className="symbol text-[23px]">edit</span></button>
+                  </td>
+                </tr>
+              )})}
+            </tbody>
+          </table>
+          
+          <Paginacao paginacao={paginacao} setPaginacao={setPaginacao} length={tableData.length} range={15} />
+        </>
         ) : <Carregando />}
       </div>
 

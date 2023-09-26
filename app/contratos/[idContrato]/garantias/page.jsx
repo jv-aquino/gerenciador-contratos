@@ -12,7 +12,7 @@ import NovaNota from '@/components/nota/NovaNota'
 import toastBase from "@/components/toastBase";
 import { toast } from "react-toastify"
 
-export default function NotasPage({ params }) {
+export default function GarantiasPage({ params }) {
   const [tableData, setTableData] = useState([]);
   const [semRes, setSemRes] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -21,12 +21,12 @@ export default function NotasPage({ params }) {
   const [visibleForm, setVisibleForm] = useState(false);
 
   useEffect(() => {
-    supabase.from("notafiscal").select("*").eq("id_contrato", params.idContrato).then(res => {
+    supabase.from("garantia").select("*").eq("id_contrato", params.idContrato).then(res => {
       if (res.data.length) {
         const formattedData = res.data.map(item => {
           return {
             ...item,
-            "Data_de_Entrada": format(parseISO(item["Data_de_Entrada"]), 'dd/MM/yyyy'),
+            "Data_Vencimento": format(parseISO(item["Data_Vencimento"]), 'dd/MM/yyyy'),
           };
         });
         setTableData(formattedData);
@@ -52,7 +52,7 @@ export default function NotasPage({ params }) {
 
   return (
     <>
-      <h1>Notas do Contrato #{params.idContrato}</h1>
+      <h1>Garantias do Contrato #{params.idContrato}</h1>
 
       {visibleForm && <NovaNota idContrato={params.idContrato} cancel={() => setVisibleForm(false)} handleSubmit={(values) => novaNota(values)}  />}
 
@@ -73,13 +73,8 @@ export default function NotasPage({ params }) {
                 return (
                 <tr key={i}>
                   {Object.values(row).map((value, index) => {
-                    if (index === 5) {
-                      return (
-                        <td key={index}><a href={value} target="_blank">Link</a></td>
-                      )
-                    }
-                  return (
-                    <td key={index}>{value}</td>
+                    return (
+                      <td key={index}>{value}</td>
                   )})}
                   <td>
                     <button className="alterar" onClick={() => {
@@ -87,9 +82,8 @@ export default function NotasPage({ params }) {
                           "id": Object.values(row)[0],
                           "id_contrato": Object.values(row)[1],
                           "Valor": Object.values(row)[2],
-                          "Data_de_Entrada": Object.values(row)[3],
-                          "Numero": Object.values(row)[4],
-                          "PDF": Object.values(row)[5]
+                          "Data_de_Vencimento": Object.values(row)[3],
+                          "dados": Object.values(row)[4],
                         }
                         setNota(valores);
                         setAlterar(true);
@@ -100,12 +94,12 @@ export default function NotasPage({ params }) {
               )})}
             </tbody>
           </table>
-          ) : (semRes && !loading) ? <h2 className="font-semibold text-3xl text-dark-blue-500">Sem Notas cadastradas</h2> : 
+          ) : (semRes && !loading) ? <h2 className="font-semibold text-3xl text-dark-blue-500">Sem Garantias cadastradas</h2> : 
           <Carregando />}
       </div>
 
       <div className="m-auto mt-5 font-medium flex justify-center">
-        <button type="button" className="botaoVerde text-[26px]" onClick={() => setVisibleForm(true)}>Nova Nota Fiscal</button>
+        <button type="button" className="botaoVerde text-[26px]" onClick={() => setVisibleForm(true)}>Nova Garantia</button>
       </div>
     </>
   )

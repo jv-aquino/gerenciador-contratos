@@ -31,6 +31,7 @@ export default function MenuContrato({ onClose, id, openEmpresa, openRenovar }) 
             </ul>
             <ul className="font-medium flex flex-col gap-1">
               <Link href={path + 'atestadoMedicao'}>Atestado de Medição</Link>
+              <Link href={path + 'garantias'}>Garantias</Link>
             </ul>
           </div>
         </div>

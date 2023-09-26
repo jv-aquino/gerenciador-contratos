@@ -27,7 +27,7 @@ function Li({text, icon, link}) {
 
 export default function Footer() {
   return (
-    <footer className="bg-black grid px-2 py-7 mt-5">
+    <footer className="bg-black grid px-2 py-7 mt-4">
       <Section header="Navegação">
         <Li text='Início'     link='/' icon='home' />
         <Li text='Contratos' link='/contratos' icon='sort' />

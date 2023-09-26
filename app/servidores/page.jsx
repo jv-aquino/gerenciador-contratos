@@ -8,10 +8,14 @@ import Carregando from '@/components/Carregando';
 
 import NovoServidor from '@/components/NovoServidor';
 
+import Paginacao from "@/components/Paginacao";
+
 export default function Servidores() {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
+
+  const [paginacao, setPaginacao] = useState(15);
   
   useEffect(() => {
     getData('servidor', 20).then(value => {
@@ -77,45 +81,49 @@ export default function Servidores() {
 
       <div>
         {(loading) ? (
-        <table>
-          <thead>
-            <tr>
-              {Object.keys(tableData[0]).map((column) => {
-                return (
-                <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
-              )})}
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map((row, index) => { 
-              return (
-              <tr key={index}>
-                {Object.values(row).map((value, index) => {
-                return (index == 3) ? (
-                  <td key={index} className="font-semibold alterar">{value}</td>
-                ) 
-                : (
-                  <td key={index} className={(value === "Ativo") ? 'ativo' : (value === "Inativo") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
+        <>
+          <table>
+            <thead>
+              <tr>
+                {Object.keys(tableData[0]).map((column) => {
+                  return (
+                  <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
                 )})}
-                <td>
-                  <button className="alterar" onClick={() => {
-                    let valores = {
-                      "id": Object.values(row)[0],
-                      "Nome": Object.values(row)[1],
-                      "Local": Object.values(row)[2],
-                      "CPF": Object.values(row)[3],
-                      "Email": Object.values(row)[4],
-                      "Situacao": Object.values(row)[5]
-                    }
-                    setServidor(valores);
-                    setAlterar(true);
-                  }}><span className="symbol text-[23px]">edit</span></button>
-                </td>
+                <th></th>
               </tr>
-            )})}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {[...tableData].splice(paginacao - 15, 15).map((row, index) => {
+                return (
+                <tr key={index}>
+                  {Object.values(row).map((value, index) => {
+                  return (index == 3) ? (
+                    <td key={index} className="font-semibold alterar">{value}</td>
+                  )
+                  : (
+                    <td key={index} className={(value === "Ativo") ? 'ativo' : (value === "Inativo") ? 'inativo' : null}>{(value === true) ? 'Sim' : (value === false) ? 'Não' : value}</td>
+                  )})}
+                  <td>
+                    <button className="alterar" onClick={() => {
+                      let valores = {
+                        "id": Object.values(row)[0],
+                        "Nome": Object.values(row)[1],
+                        "Local": Object.values(row)[2],
+                        "CPF": Object.values(row)[3],
+                        "Email": Object.values(row)[4],
+                        "Situacao": Object.values(row)[5]
+                      }
+                      setServidor(valores);
+                      setAlterar(true);
+                    }}><span className="symbol text-[23px]">edit</span></button>
+                  </td>
+                </tr>
+              )})}
+            </tbody>
+          </table>
+          
+          <Paginacao paginacao={paginacao} setPaginacao={setPaginacao} length={tableData.length} range={15} />
+        </>
         ) : <Carregando />}
       </div>
 
