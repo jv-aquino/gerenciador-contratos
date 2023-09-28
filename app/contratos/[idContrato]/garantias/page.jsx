@@ -7,7 +7,7 @@ import { parseISO, format } from 'date-fns';
 
 import Carregando from "@/components/Carregando";
 
-import NovaNota from '@/components/nota/NovaNota'
+import NovaGarantia from '@/components/garantia/NovaGarantia'
 
 import toastBase from "@/components/toastBase";
 import { toast } from "react-toastify"
@@ -16,7 +16,7 @@ export default function GarantiasPage({ params }) {
   const [tableData, setTableData] = useState([]);
   const [semRes, setSemRes] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [nota, setNota] = useState({});
+  const [garantia, setGarantia] = useState({});
   
   const [visibleForm, setVisibleForm] = useState(false);
 
@@ -26,7 +26,7 @@ export default function GarantiasPage({ params }) {
         const formattedData = res.data.map(item => {
           return {
             ...item,
-            "Data_Vencimento": format(parseISO(item["Data_Vencimento"]), 'dd/MM/yyyy'),
+            "Data_de_Vencimento": format(parseISO(item["Data_de_Vencimento"]), 'dd/MM/yyyy'),
           };
         });
         setTableData(formattedData);
@@ -38,15 +38,14 @@ export default function GarantiasPage({ params }) {
     })
   }, []);
 
-  const novaNota = async (values) => {
-    const { data: d, error: e } = await supabase.from('notafiscal').insert(values).select('*, contrato(*)');
-    
-    const { data, error } = await supabase.from("contrato").update({ Pago: Number(d[0].contrato.Pago) + Number(values.Valor)}).eq('id', d[0].contrato.id).select('*');
+  const novaGarantia = async (values) => {
+    const { data: d, error } = await supabase.from('garantia').insert(values).select('*');
 
-    if (error || e) {
-      toast.error('Erro ao inserir nota', toastBase(3000));
+    if (error) {
+      toast.error('Erro ao inserir garantia', toastBase(3000));
     } else {
-      toast.success("Nota inserida e valor pago do contrato atualizado", toastBase(3000))
+      toast.success("Garantia inserida", toastBase(3000));
+      window.location.reload()
     }
   }
 
@@ -54,14 +53,15 @@ export default function GarantiasPage({ params }) {
     <>
       <h1>Garantias do Contrato #{params.idContrato}</h1>
 
-      {visibleForm && <NovaNota idContrato={params.idContrato} cancel={() => setVisibleForm(false)} handleSubmit={(values) => novaNota(values)}  />}
+      {visibleForm && <NovaGarantia idContrato={params.idContrato} cancel={() => setVisibleForm(false)} handleSubmit={(values) => novaGarantia(values)}  />}
 
       <div className="flex justify-center w-full">
         {(!loading && !semRes) ? (
           <table>
             <thead>
               <tr>
-                {Object.keys(tableData[0]).map((column) => {
+                {Object.keys(tableData[0]).map((column, i) => {
+                  if (i === 2) { return null }
                   return (
                   <th key={column.replace(/_/g, ' ')}>{column.replace(/_/g, ' ')}</th>
                 )})}
@@ -73,19 +73,21 @@ export default function GarantiasPage({ params }) {
                 return (
                 <tr key={i}>
                   {Object.values(row).map((value, index) => {
+                  if (index === 2) { return null }
                     return (
-                      <td key={index}>{value}</td>
+                      <td key={index}>{String(value)}</td>
                   )})}
                   <td>
                     <button className="alterar" onClick={() => {
                         let valores = {
                           "id": Object.values(row)[0],
                           "id_contrato": Object.values(row)[1],
-                          "Valor": Object.values(row)[2],
-                          "Data_de_Vencimento": Object.values(row)[3],
-                          "dados": Object.values(row)[4],
+                          "dados": Object.values(row)[2],
+                          "Valor": Object.values(row)[3],
+                          "Data_de_Entrada": Object.values(row)[4],
+                          "Data_de_Vencimento": Object.values(row)[5],
                         }
-                        setNota(valores);
+                        setGarantia(valores);
                         setAlterar(true);
                       }}><span className="symbol text-[23px]">edit</span>
                     </button>
