@@ -21,7 +21,7 @@ export default function Licitacoes() {
       <h1>Licitações</h1>
 
       <div>
-        {(!loading) ? (
+        {(loading) ? (
         <table>
           <thead>
             <tr>

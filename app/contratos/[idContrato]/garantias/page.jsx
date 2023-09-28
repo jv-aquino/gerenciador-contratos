@@ -26,6 +26,7 @@ export default function GarantiasPage({ params }) {
         const formattedData = res.data.map(item => {
           return {
             ...item,
+            "Data_de_Entrada": format(parseISO(item["Data_de_Entrada"]), 'dd/MM/yyyy'),
             "Data_de_Vencimento": format(parseISO(item["Data_de_Vencimento"]), 'dd/MM/yyyy'),
           };
         });
