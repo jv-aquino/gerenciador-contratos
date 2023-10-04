@@ -23,7 +23,6 @@ export default function Empresas() {
     })
   }, [])
   
-
   const [alterar, setAlterar] = useState(false);
   const [empresa, setEmpresa] = useState({});
 
@@ -108,7 +107,8 @@ export default function Empresas() {
                         "CPF": Object.values(row)[2],
                         "Pessoa": Object.values(row)[3],
                         "Privada": Object.values(row)[4],
-                        "Situacao": Object.values(row)[5]
+                        "Situacao": Object.values(row)[5],
+                        "Cidade": Object.values(row)[6],
                       }
                       setEmpresa(valores);
                       setAlterar(true);
@@ -130,7 +130,7 @@ export default function Empresas() {
 
       {(visibleForm) ? <NovaEmpresaForm handleSubmit={handleSubmit} cancel={() => setVisibleForm(false)} /> : null}
 
-      {(alterar) ? <NovaEmpresaForm handleSubmit={(id) => handleSubmit(id)} cancel={() => setAlterar(false)} valores={empresa} deletarEmpresa={deletarEmpresa}/> : null}
+      {(alterar) ? <NovaEmpresaForm handleSubmit={(id) => handleSubmit(id)} cancel={() => setAlterar(false)} valores={empresa} deletarEmpresa={() => deletarEmpresa(empresa.id)}/> : null}
     </>
   );
 }

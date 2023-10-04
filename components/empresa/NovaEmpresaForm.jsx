@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+"use client"
+import { useState } from 'react';
 
 export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deletarEmpresa }) {
-  let values = null;
+  let values = valores;
   if (!values) {
     values = {};
     values["Nome"] = values["CPF"] = values["id"] = values['Cidade'] = '';
@@ -9,10 +10,6 @@ export default function NovaEmpresaForm ({ handleSubmit, cancel, valores, deleta
     values["Privada"] = 'true';
     values["Pessoa"] = 'Jurídica';
   }
-
-  useEffect(() => {
-    values = valores;
-  }, [valores]);
 
   const [id, setId] = useState(values["id"]);
   const [Nome_Legal, setNome] = useState(values["Nome"]);

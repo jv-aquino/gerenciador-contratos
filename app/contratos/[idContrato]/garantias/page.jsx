@@ -16,8 +16,10 @@ export default function GarantiasPage({ params }) {
   const [tableData, setTableData] = useState([]);
   const [semRes, setSemRes] = useState(true);
   const [loading, setLoading] = useState(true);
+
   const [garantia, setGarantia] = useState({});
   
+  const [alterar, setAlterar] = useState(false);
   const [visibleForm, setVisibleForm] = useState(false);
 
   useEffect(() => {
@@ -49,12 +51,25 @@ export default function GarantiasPage({ params }) {
       window.location.reload()
     }
   }
+  
+  const updateGarantia = async (values) => {
+    const { data: d, error } = await supabase.from('garantia').eq('id', values.id).update(values).select('*');
+
+    if (error) {
+      toast.error('Erro ao atualizar garantia', toastBase(3000));
+    } else {
+      toast.success("Garantia atualizada", toastBase(3000));
+      window.location.reload()
+    }
+  }
 
   return (
     <>
       <h1>Garantias do Contrato #{params.idContrato}</h1>
 
       {visibleForm && <NovaGarantia idContrato={params.idContrato} cancel={() => setVisibleForm(false)} handleSubmit={(values) => novaGarantia(values)}  />}
+
+      {(alterar) ? <NovaGarantia idContrato={params.idContrato} cancel={() => setAlterar(false)} handleSubmit={(values) => {}} valores={garantia}/> : null}
 
       <div className="flex justify-center w-full">
         {(!loading && !semRes) ? (

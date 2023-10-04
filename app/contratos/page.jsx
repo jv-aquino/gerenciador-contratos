@@ -53,7 +53,7 @@ export default function Contratos() {
       <div>
         {(loading) ? (
         <>
-          <table>
+          <table className="max-w-[90%] mx-auto">
             <thead>
               <tr>
                 {Object.keys(tableData[0]).map((column) => {
@@ -73,7 +73,7 @@ export default function Contratos() {
                       <button onClick={() => {
                         setID(value);
                         setShowEmpresa(true);
-                      }} className="empresa">Empresa +</button>
+                      }} className="empresa w-max">Empresa +</button>
                     </td>
                   )
                   : (index == 8 && value) ? (
@@ -88,7 +88,7 @@ export default function Contratos() {
                   )})}
                   <td className="font-semibold alterar"><button type="button" onClick={() => {
                     window.location.assign("/contratos/" + Object.values(row)[0])
-                  }}>Menu +</button></td>
+                  }} className="w-max">Menu +</button></td>
                 </tr>
               )})}
             </tbody>

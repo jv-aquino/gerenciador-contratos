@@ -3,14 +3,14 @@ import { toast } from "react-toastify";
 import toastBase from "@/components/toastBase";
 
 export const adicionarResponsavel = async (responsaveis, setResponsaveis) => {
-  const responsavelEmail = document.getElementById('responsavel_email').value;
+  const responsavelCpf = document.getElementById('responsavel_cpf').value;
   const responsavelFuncao = document.getElementById('responsavel_funcao').value;
 
-  if (responsavelEmail && responsavelFuncao) {
+  if (responsavelCpf && responsavelFuncao) {
     const { data: servidor, error: servidorError } = await supabase
     .from('servidor')
     .select('id,Nome')
-    .eq('Email', responsavelEmail).single();
+    .eq('CPF', responsavelCpf).single();
     console.log(servidor)
 
     if (servidorError) {
@@ -20,11 +20,11 @@ export const adicionarResponsavel = async (responsaveis, setResponsaveis) => {
 
     setResponsaveis([...responsaveis, { servidor_id: servidor.id, Funcao: responsavelFuncao, contrato_id: null, Nome: servidor.Nome }]);
     
-    document.getElementById('responsavel_email').value = '';
+    document.getElementById('responsavel_cpf').value = '';
     document.getElementById('responsavel_funcao').value = '';
 
     toast.success("Servidor adicionado", toastBase(3000))
   } else {
-    toast.error("Preencha os campos de email e função do responsável", toastBase(4000));
+    toast.error("Preencha os campos de CPF e função do responsável", toastBase(4000));
   }
 };

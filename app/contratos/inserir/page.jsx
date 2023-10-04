@@ -102,7 +102,7 @@ export default function Inserir() {
 
       <form onSubmit={handleSubmit}
       className="bg-white rounded-md p-3 m-auto
-      flex flex-col items-center gap-2 w-[330px]">
+      flex flex-col items-center gap-2 w-[350px]">
         <label htmlFor="objeto"><span className="required">*</span>Objeto:</label>
         <input type="text" id="objeto" name="objeto" placeholder="Nome do Contrato" required />
 
@@ -138,13 +138,13 @@ export default function Inserir() {
         <label htmlFor="valor_empenhado">Valor Empenhado (Total):</label>
         <input type="number" id="valor_empenhado" name="valor_empenhado" step="0.01" min="0" pattern="^\d+(,\d{1,2})?$" title="Informe um valor válido" placeholder="5000.00" required />
 
-        <button type="button" onClick={() => setModalOpen(true)}>Pesquisar Empresa <span className="symbol">search</span></button>
+        <button type="button" onClick={() => setModalOpen(true)} className="botaoVerde invertido mt-3 mb-[-3px] font-semibold">Pesquisar Empresa <span className="symbol">search</span></button>
         <label htmlFor="empresa"><span className="required">*</span>ID da Empresa:</label>
         <input type="text" id="empresa" name="empresa" value={empresaId} onChange={(e) => setEmpresaId(e.target.value)} required />
 
         {/* Criar opção de adicionar responsáveis*/}
         <h3 className="font-semibold text-xl pt-4">Responsáveis</h3>
-        <ul className="list-disc">
+        <ul className="list-disc pl-6 pr-2">
           {responsaveis.map((responsavel, index) => (
             <li key={index}>
               ID: {responsavel.servidor_id}, Função: {responsavel.Funcao}
@@ -153,15 +153,15 @@ export default function Inserir() {
         </ul>
 
         <div className="responsavel relative bottom-2 flex flex-col items-center">
-          <label htmlFor="responsavel_email">Email do Responsável:</label>
-          <input type="email" id="responsavel_email" name="responsavel_email" placeholder="Email do Responsável" />
+          <label htmlFor="responsavel_cpf" className="py-2">CPF do Responsável:</label>
+          <input type="text" id="responsavel_cpf" name="responsavel_cpf" placeholder="CPF do Responsável" />
 
-          <label htmlFor="responsavel_funcao">Função do Responsável:</label>
+          <label htmlFor="responsavel_funcao" className="py-2">Função do Responsável:</label>
           <input type="text" id="responsavel_funcao" name="responsavel_funcao" placeholder="Função do Responsável" />
         </div>
-        <button type="button" onClick={() => adicionarResponsavel(responsaveis, setResponsaveis)}>Adicionar Responsável</button>
+        <button type="button" className="botaoVerde invertido font-semibold" onClick={() => adicionarResponsavel(responsaveis, setResponsaveis)}>Adicionar Responsável</button>
 
-        <input className="bg-light-blue-600 border-0 cursor-pointer text-white p-2 mt-2" type="submit" value="Enviar" />
+        <input className="bg-light-blue-600 border-0 cursor-pointer text-white p-3 mt-5 font-semibold" type="submit" value="Enviar" />
       </form>
 
       {(modalOpen) ? <SearchEmpresa setOpen={setModalOpen} handleSearchEmpresa={handleSearchEmpresa} /> : null}

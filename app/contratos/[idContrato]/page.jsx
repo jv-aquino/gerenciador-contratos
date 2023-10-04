@@ -13,7 +13,7 @@ import ShowEmpresa from "@/components/empresa/ShowEmpresa";
 
 import Renovar from '@/components/contratos/Renovar';
 
-const { parseISO, parse, format, addMonths } = require('date-fns');
+import { parseISO, parse, format, addMonths, getYear, differenceInCalendarMonths } from 'date-fns';
 
 export default function VerContrato() {
   const params = useParams();
@@ -48,8 +48,16 @@ export default function VerContrato() {
     const startDate = new Date();
     const endDate = new Date(dataFinal);
     const diffDays = Math.round((endDate - startDate) / oneDay);
+    console.log((endDate - startDate))
     return diffDays;
   };
+
+  const getMensal = () => {
+    const mesesTotais = differenceInCalendarMonths(parse(contrato["Vigencia_final"], 'dd/MM/yyyy', new Date()), parse(contrato["Vigencia_inicio"], 'dd/MM/yyyy', new Date())); 
+    const valorMensal = contrato['Valor'] / mesesTotais;
+
+    return valorMensal;
+  }
 
   return (
   <>  
@@ -75,8 +83,8 @@ export default function VerContrato() {
 
         <button type="button" className="absolute top-3 right-3 text-2xl" onClick={() => window.history.back()}><span className="symbol">reply</span></button>
 
-        <h2 className="font-semibold text-3xl self-center">{contrato["Objeto"]}</h2>
-        <h3 className="font-medium text-2xl italic pr-1.5 text-gray-400 self-center">{contrato["Tipo"]}</h3>
+        <h2 className="font-semibold text-3xl self-center text-center mt-2">{contrato["Objeto"]}</h2>
+        <h3 className="font-medium text-2xl italic pr-1.5 text-gray-400 self-center mt-0.5 mb-4">{contrato["Tipo"]}</h3>
 
         <p>Processo: {contrato["Processo"]}</p>
         <p>Número do contrato: {contrato["Numero_contrato"]}</p>
@@ -90,6 +98,9 @@ export default function VerContrato() {
         <p>Valor: <span className="font-medium">R$ {parseFloat(contrato["Valor"]).toFixed(2).replace('.', ',')}</span></p>
         <p>A ser pago: <span className="font-medium text-red-700">R$ {parseFloat(contrato["Valor"] - contrato["Pago"]).toFixed(2).replace('.', ',')}</span></p>
         <p>Valor Empenhado (Total): <span className="font-medium">R$ {parseFloat(contrato["Valor_Empenhado"] ? contrato["Valor_Empenhado"] : 0).toFixed(2).replace('.', ',')}</span></p>
+        <br/>
+        <p>Valor Mensal Estimado: <span className="font-medium">R$ {getMensal()}</span></p>
+        <p>Valor Empenhado Estimado (<span className="font-medium">{getYear(new Date())}</span>): <span className="font-medium text-teal-600">R$ {getMensal()}</span></p>
         <br/>
         <p>Dias até o fim da vigência: <span className={"font-semibold " + ((contrato["Dias_Restantes"] <= 40) ? "text-red-700" : ((contrato["Dias_Restantes"] <= 120) ? "text-amber-600" : ""))}>
             {(contrato["Dias_Restantes"] < 0) ? "Expirado" : contrato["Dias_Restantes"]}
