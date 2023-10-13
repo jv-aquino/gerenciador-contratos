@@ -46,6 +46,7 @@ export default function Navbar() {
             <ul>
               <Link href="/empresas">Empresas</Link>
               <Link href="/servidores">Servidores</Link>
+              <Link href="/cadastro">Cadastro</Link>
             </ul>
           </div>
 
