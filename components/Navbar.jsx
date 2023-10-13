@@ -45,7 +45,7 @@ export default function Navbar() {
             <li>Outros<span className="symbol">expand_more</span></li>
             <ul>
               <Link href="/empresas">Empresas</Link>
-              <Link href="/servidores">Servidores</Link>
+              <Link href="/servidores">Fiscais</Link>
               <Link href="/cadastro">Cadastro</Link>
             </ul>
           </div>
