@@ -27,8 +27,8 @@ export default function Responsaveis() {
       <div className="content">
         {fiscais.map(fiscal => {
           return (
-            <p key={fiscal.contrato_id}>
-              <span className={"font-medium " + (fiscal.servidor.Ativo ? "text-green-600" : "text-red-600")}>{fiscal.servidor.Nome}</span> ({fiscal.servidor.Email}): {fiscal.Funcao}
+            <p key={fiscal.servidor_id}>
+              <span className={"font-medium " + (fiscal.servidor['Situação'] ? "text-green-600" : "text-red-600")}>{fiscal.servidor.Nome}</span> ({fiscal.servidor.Email}): {fiscal.Funcao}
             </p>
           ) 
         })}
