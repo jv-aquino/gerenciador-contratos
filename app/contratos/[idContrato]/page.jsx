@@ -56,7 +56,7 @@ export default function VerContrato() {
     const mesesTotais = differenceInCalendarMonths(parse(contrato["Vigencia_final"], 'dd/MM/yyyy', new Date()), parse(contrato["Vigencia_inicio"], 'dd/MM/yyyy', new Date())); 
     const valorMensal = contrato['Valor'] / mesesTotais;
 
-    return valorMensal;
+    return valorMensal.toFixed(2);
   }
 
   return (
