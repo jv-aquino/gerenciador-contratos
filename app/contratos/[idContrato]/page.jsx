@@ -59,6 +59,24 @@ export default function VerContrato() {
     return valorMensal.toFixed(2);
   }
 
+  const getEstimado = () => { 
+    const inicioContrato = parse(contrato["Vigencia_inicio"], 'dd/MM/yyyy', new Date());
+    const fimContrato = parse(contrato["Vigencia_final"], 'dd/MM/yyyy', new Date());
+    const ano = getYear(new Date());
+
+    const inicioAno = new Date(ano, 0, 1);
+    const fimAno = new Date(ano, 11, 31);
+
+    const overlapInicio = inicioContrato > inicioAno ? inicioContrato : inicioAno;
+    const overlapFim = fimContrato < fimAno ? fimContrato : fimAno;
+
+    const monthsOverlap = differenceInCalendarMonths(overlapFim, overlapInicio);
+
+    const estimatedValue = (monthsOverlap + 1) * getMensal();
+
+    return estimatedValue.toFixed(2);
+  }
+
   return (
   <>  
     {(menuOpen) ? <MenuContrato onClose={() => setMenuOpen(false)} id={id} openEmpresa={() => setEmpresaOpen(true)} openRenovar={() => setRenovarOpen(true)} /> : null}
@@ -100,7 +118,7 @@ export default function VerContrato() {
         <p>Valor Empenhado (Total): <span className="font-medium">R$ {parseFloat(contrato["Valor_Empenhado"] ? contrato["Valor_Empenhado"] : 0).toFixed(2).replace('.', ',')}</span></p>
         <br/>
         <p>Valor Mensal Estimado: <span className="font-medium">R$ {getMensal()}</span></p>
-        <p>Valor Empenhado Estimado (<span className="font-medium">{getYear(new Date())}</span>): <span className="font-medium text-teal-600">R$ {getMensal()}</span></p>
+        <p>Valor Empenhado Estimado (<span className="font-medium">{getYear(new Date())}</span>): <span className="font-medium text-teal-600">R$ {getEstimado()}</span></p>
         <br/>
         <p>Dias até o fim da vigência: <span className={"font-semibold " + ((contrato["Dias_Restantes"] <= 40) ? "text-red-700" : ((contrato["Dias_Restantes"] <= 120) ? "text-amber-600" : ""))}>
             {(contrato["Dias_Restantes"] < 0) ? "Expirado" : contrato["Dias_Restantes"]}
